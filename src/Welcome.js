@@ -4,7 +4,7 @@ export default function Welcome({ onContinue }) {
   return (
     <div className="welcome screen">
       <div className="party-badge">✨ Dinner Party ✨</div>
-      <div className="party-accent">✦</div>
+
       <h1 className="welcome-title">
         Welcome to the Smairats <span className="emoji">🥂</span>
       </h1>

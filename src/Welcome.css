@@ -128,11 +128,6 @@
   opacity: 0.35;
 }
 
-.party-accent {
-  font-size: 10px;
-  opacity: 0.5;
-  margin-top: -6px;
-}
 .welcome {
   flex: 1;
   display: flex;
@@ -142,7 +137,7 @@
 
   /* ✅ THIS is the “move up” */
   justify-content: flex-start;
-  padding-top: 6vh;
+  padding-top: 18vh;
 
   gap: 28px;
   position: relative;
