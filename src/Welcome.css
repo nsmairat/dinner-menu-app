@@ -30,6 +30,9 @@
 }
 /* Optional little “badge” if you use it */
 .party-badge {
+  margin-top: 12vh;
+  margin-bottom: 14px;
+
   font-size: 19px;
   letter-spacing: 1.6px;
   text-transform: uppercase;
@@ -37,7 +40,6 @@
   color: rgba(255, 235, 190, 0.85);
 
   padding: 0; /* ⛔ no button padding */
-  margin-bottom: 6px;
 
   background: none; /* ⛔ no button background */
   border: none; /* ⛔ no border */
@@ -55,7 +57,8 @@
 .welcome-title {
   font-family: "Playfair Display", serif;
   font-size: 38px;
-  margin: 0;
+
+  margin-top: 50px;
   color: rgba(245, 245, 245, 0.95);
   text-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
 }
@@ -137,7 +140,7 @@
 
   /* ✅ THIS is the “move up” */
   justify-content: flex-start;
-  padding-top: 18vh;
+  padding-top: 22vh;
 
   gap: 28px;
   position: relative;
@@ -154,4 +157,8 @@
 }
 .welcome {
   outline: 3px solid hotpink;
+  outline: 6px solid hotpink !important;
+}
+.welcome .welcome-title {
+  margin-top: 22px !important;
 }
