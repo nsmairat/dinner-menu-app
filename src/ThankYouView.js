@@ -3,9 +3,7 @@ import "./ThankYouView.css";
 export default function ThankYouView({ onDone }) {
   return (
     <div className="thanks screen">
-      <div className="topbar">
-        <h1 className="screen-title">Thanks</h1>
-      </div>
+      <div className="topbar"></div>
 
       <section className="card thanks-card">
         <div className="thanks-big">Thank you ♡</div>
