@@ -1,0 +1,134 @@
+/* ===== Drinks card header (match GuestView section title style) ===== */
+.drinks-card .menu-title {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 10px;
+  color: rgba(245, 245, 245, 0.9);
+}
+
+.menu-subtitle {
+  text-align: center;
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+/* ===== Drink options list (more airy like food list) ===== */
+.drink-options {
+  display: flex;
+  flex-direction: column;
+  margin: 6px 0 16px;
+}
+
+/* each row like your food rows: softer, with subtle divider */
+.drink-row {
+  width: 100%;
+  padding: 14px 6px;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: transparent;
+  border: 1px solid transparent;
+
+  color: rgba(245, 245, 245, 0.92);
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* subtle divider line like food-card */
+.drink-row:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+}
+
+/* selected = gentle glow, not a harsh block */
+.drink-row.selected {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  transform: translateY(-1px);
+}
+
+/* label matches food-name strength (not too bold) */
+.drink-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(245, 245, 245, 0.95);
+}
+
+/* dot keeps your style but softer */
+.drink-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(245, 245, 245, 0.45);
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.drink-row.selected .drink-dot {
+  border-color: rgba(245, 245, 245, 0.85);
+  background: rgba(245, 245, 245, 0.85);
+}
+
+/* ===== Name row (match card rhythm + spacing) ===== */
+.name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding-top: 14px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.name-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+/* input: less harsh + darker placeholder feeling */
+.name-input {
+  flex: 1;
+  border-radius: 14px;
+  padding: 10px 12px;
+
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  color: rgba(245, 245, 245, 0.95);
+  outline: none;
+
+  transition:
+    border 0.2s ease,
+    background 0.2s ease;
+}
+
+.name-input:focus {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* if you ever re-add placeholder later */
+.name-input::placeholder {
+  color: rgba(245, 245, 245, 0.35);
+}
+
+/* button disabled state (keep yours) */
+.primary-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

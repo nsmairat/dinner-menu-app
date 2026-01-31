@@ -1,0 +1,18 @@
+.thanks-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 18px;
+}
+
+.thanks-big {
+  font-size: 24px;
+  font-weight: 800;
+  color: rgba(245, 245, 245, 0.95);
+}
+
+.thanks-small {
+  text-align: center;
+  color: rgba(245, 245, 245, 0.7);
+}

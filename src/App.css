@@ -1,0 +1,130 @@
+/* src/App.css */
+
+/* App background = one shared animated world */
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 28px 14px;
+
+  background: #1c1a18;
+  position: relative;
+  overflow: hidden;
+
+  isolation: isolate; /* ✅ keeps ::before/::after visible */
+}
+
+/* shared animated background */
+.app::before {
+  content: "";
+  position: absolute;
+  inset: -220px;
+
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 90, 200, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 25%,
+      rgba(90, 200, 255, 0.2),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 60% 80%,
+      rgba(255, 210, 120, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 35%,
+      rgba(255, 210, 120, 0.08) 50%,
+      rgba(180, 230, 255, 0.07) 65%,
+      transparent 100%
+    );
+
+  filter: blur(12px);
+  animation: shimmer 3.8s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-55%) rotate(0.5deg);
+  }
+  50% {
+    transform: translateX(10%) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateX(-55%) rotate(0.5deg);
+  }
+}
+
+/* sparkles */
+.app::after {
+  content: "✦   ✦      ✦    ✦   ✦      ✦    ✦";
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+
+  letter-spacing: 18px;
+  font-size: 14px;
+
+  color: rgba(245, 245, 245, 0.24);
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.15),
+    0 0 14px rgba(255, 210, 120, 0.1),
+    0 0 12px rgba(90, 200, 255, 0.1);
+
+  animation: starDrift 5.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes starDrift {
+  from {
+    transform: translateY(0px);
+    opacity: 0.18;
+  }
+  to {
+    transform: translateY(18px);
+    opacity: 0.28;
+  }
+}
+
+/* “Phone” wrapper (content always above the background) */
+.phone {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 420px;
+
+  /* IMPORTANT:
+     keep it transparent-ish so the background shows through
+     (this removes the "box inside a box" feeling) */
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+
+  border-radius: 26px;
+  padding: 22px 18px;
+  box-sizing: border-box;
+}
+
+/* Nice on desktop */
+@media (min-width: 700px) {
+  .app {
+    padding: 42px 18px;
+  }
+
+  .phone {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  }
+}
