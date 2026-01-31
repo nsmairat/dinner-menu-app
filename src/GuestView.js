@@ -1,11 +1,6 @@
 import "./GuestView.css";
 
-export default function GuestView({
-  foods = [],
-  onOpenDrinks,
-  onBack,
-  onOpenKitchen,
-}) {
+export default function GuestView({ foods = [], onOpenDrinks, onBack }) {
   return (
     <div className="guest screen">
       <div className="topbar">
@@ -14,23 +9,25 @@ export default function GuestView({
         </button>
 
         <h1 className="screen-title">Tonight</h1>
+
+        <div className="topbar-spacer" />
       </div>
 
       <section className="card food-card">
         <div className="food-card-header">Food</div>
 
-        <div className="food-items">
-          {foods.length ? (
-            foods.map((item, idx) => (
-              <div className="food-item" key={`${item.name}-${idx}`}>
+        {foods.length === 0 ? (
+          <div className="menu-empty">Menu coming soon…</div>
+        ) : (
+          <div className="food-items">
+            {foods.map((item, i) => (
+              <div className="food-item" key={i}>
                 <div className="food-name">{item.name}</div>
                 <div className="food-desc">{item.description}</div>
               </div>
-            ))
-          ) : (
-            <div className="menu-empty">Loading menu…</div>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <button className="drinks-bar" onClick={onOpenDrinks}>

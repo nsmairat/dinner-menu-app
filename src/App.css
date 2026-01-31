@@ -1,5 +1,12 @@
 /* src/App.css */
 
+:root {
+  --text: rgba(245, 245, 245, 0.92);
+  --muted: rgba(245, 245, 245, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --card: rgba(255, 255, 255, 0.06);
+}
+
 /* App background = one shared animated world */
 .app {
   min-height: 100vh;
@@ -11,7 +18,7 @@
   position: relative;
   overflow: hidden;
 
-  isolation: isolate; /* ✅ keeps ::before/::after visible */
+  isolation: isolate; /* keeps ::before/::after visible */
 }
 
 /* shared animated background */
@@ -97,19 +104,44 @@
     opacity: 0.28;
   }
 }
-:root {
-  --text: rgba(245, 245, 245, 0.92);
-  --muted: rgba(245, 245, 245, 0.72);
-  --border: rgba(255, 255, 255, 0.12);
-  --card: rgba(255, 255, 255, 0.06);
-}
-/* “Phone” wrapper (content always above the background) */
+
+/* Phone wrapper (content above the animated background) */
 .phone {
+  position: relative;
+  z-index: 2;
+
   width: 100%;
   max-width: 420px;
-  min-height: 100vh; /* ✅ gives full height so you can position */
-  display: flex;
-  flex-direction: column; /* ✅ does NOT center vertically */
+
+  border-radius: 26px;
+  padding: 22px 18px;
+  box-sizing: border-box;
+
+  /* important: keep transparent-ish so background shows */
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Calm overlay INSIDE the phone so selections stay readable */
+.phone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 26px;
+
+  background: rgba(10, 9, 8, 0.4); /* adjust 0.30–0.55 */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Make sure the screens sit above the overlay */
+.phone > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Nice on desktop */
@@ -122,9 +154,4 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
   }
-}
-/* iPhone keyboard friendliness */
-.phone {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
 }

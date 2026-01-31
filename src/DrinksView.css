@@ -1,17 +1,16 @@
-/* DrinksView.css — polished + matches GuestView */
+/* DrinksView.css — CLEAN + matches GuestView */
 
 .drinks {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
-/* ---------- Top bar (arrow + centered title) ---------- */
+/* ===== Topbar (arrow + truly centered title) ===== */
 .topbar {
   display: grid;
   grid-template-columns: 36px 1fr 36px;
   align-items: center;
-  margin-bottom: 8px;
 }
 
 .topbar-spacer {
@@ -29,12 +28,11 @@
   color: rgba(245, 245, 245, 0.95);
 }
 
-/* ---------- Card ---------- */
+/* ===== Card area ===== */
 .drinks-card {
   padding: 18px 16px;
 }
 
-/* header inside card */
 .menu-title {
   font-family: "Playfair Display", serif;
   font-size: 20px;
@@ -50,59 +48,66 @@
   font-size: 15px;
   font-style: italic;
   line-height: 1.5;
-  color: rgba(245, 245, 245, 0.70);
+  color: rgba(245, 245, 245, 0.7);
 }
 
-/* ---------- Drink list (airy, elegant) ---------- */
+/* ===== Drink list ===== */
 .drink-options {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
-/* Each row is a button in your JS */
+/* buttons need a reset */
 .drink-row {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  font: inherit;
+
   width: 100%;
-  padding: 14px 6px;
+  padding: 14px 14px;
+  border-radius: 16px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  background: transparent;
-  border: 1px solid transparent;
-  color: rgba(245, 245, 245, 0.92);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
+  color: rgba(245, 245, 245, 0.92);
   cursor: pointer;
-  text-align: left;
 
   transition:
+    transform 0.18s ease,
     background 0.18s ease,
     border 0.18s ease,
-    transform 0.18s ease;
+    box-shadow 0.18s ease;
 }
 
-/* subtle divider like food list */
-.drink-row:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+.drink-row:hover {
+  background: rgba(255, 255, 255, 0.07);
 }
 
-/* selected: gentle lift + soft highlight */
+.drink-row:active {
+  transform: scale(0.99);
+}
+
 .drink-row.selected {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 16px;
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* label same as food-name strength */
 .drink-label {
   font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.1px;
+  font-weight: 500;
   color: rgba(245, 245, 245, 0.95);
 }
 
-/* dot indicator */
+/* dot */
 .drink-dot {
   width: 14px;
   height: 14px;
@@ -117,7 +122,7 @@
   background: rgba(245, 245, 245, 0.85);
 }
 
-/* ---------- Name row ---------- */
+/* ===== Name row ===== */
 .name-row {
   display: flex;
   align-items: center;
@@ -132,7 +137,7 @@
 .name-label {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(245, 245, 245, 0.70);
+  color: rgba(245, 245, 245, 0.7);
 }
 
 .name-input {
@@ -146,7 +151,7 @@
   color: rgba(245, 245, 245, 0.95);
   outline: none;
 
-  /* ✅ prevents iPhone zoom */
+  /* prevents iPhone zoom */
   font-size: 16px;
 
   transition:
@@ -159,10 +164,14 @@
   background: rgba(0, 0, 0, 0.22);
 }
 
-/* ---------- Confirm button uses your existing .primary-btn ---------- */
+/* confirm button (keeps your shared .primary-btn look) */
 .primary-btn {
+  width: auto;
+  align-self: center;
+  min-width: 160px;
   margin-top: 16px;
-  width: 100%;
+  padding: 12px 22px;
+  border-radius: 18px;
 }
 
 .primary-btn:disabled {
@@ -170,7 +179,7 @@
   cursor: not-allowed;
 }
 
-/* ---------- Nav arrow (same as GuestView) ---------- */
+/* nav arrow (if not already global) */
 .nav-arrow {
   width: 36px;
   height: 36px;
@@ -200,6 +209,12 @@
 
 .nav-arrow:hover {
   transform: translateX(-1px);
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.
+    0 8px 20px rgba(0, 0, 0, 0.35),
+    0 0 14px rgba(255, 210, 120, 0.12);
+}
+
+.nav-arrow:active {
+  transform: scale(0.94);
+}
