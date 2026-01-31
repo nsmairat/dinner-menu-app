@@ -1,106 +1,176 @@
-/* GuestView.css (CLEAN) */
+/* DrinksView.css — polished + matches GuestView */
 
-.guest {
+.drinks {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Top title */
+/* ---------- Top bar (arrow + centered title) ---------- */
+.topbar {
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.topbar-spacer {
+  width: 36px;
+  height: 36px;
+}
+
 .screen-title {
   font-family: "Playfair Display", serif;
   font-size: 28px;
   font-weight: 500;
-  letter-spacing: 0.5px;
-  margin: 0 0 18px;
-  color: rgba(245, 245, 245, 0.95);
+  letter-spacing: 0.4px;
+  margin: 0;
   text-align: center;
+  color: rgba(245, 245, 245, 0.95);
 }
 
-/* Food section title */
-.food-card-header {
+/* ---------- Card ---------- */
+.drinks-card {
+  padding: 18px 16px;
+}
+
+/* header inside card */
+.menu-title {
   font-family: "Playfair Display", serif;
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 8px;
   text-align: center;
   color: rgba(245, 245, 245, 0.88);
 }
 
-.food-items {
+.menu-subtitle {
+  text-align: center;
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+/* ---------- Drink list (airy, elegant) ---------- */
+.drink-options {
   display: flex;
   flex-direction: column;
 }
 
-.food-item {
-  position: relative;
-  padding: 14px 0;
-}
-
-.food-item::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.food-item:last-child::after {
-  display: none;
-}
-
-.food-name {
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(245, 245, 245, 0.95);
-  margin-bottom: 6px;
-}
-
-.food-desc {
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(245, 245, 245, 0.65);
-}
-
-/* Drinks bar */
-.drinks-bar {
+/* Each row is a button in your JS */
+.drink-row {
   width: 100%;
-  border-radius: 18px;
-  padding: 16px 18px;
+  padding: 14px 6px;
 
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-
-  color: rgba(245, 245, 245, 0.95);
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(245, 245, 245, 0.92);
+
   cursor: pointer;
+  text-align: left;
+
+  transition:
+    background 0.18s ease,
+    border 0.18s ease,
+    transform 0.18s ease;
 }
 
-.drinks-left {
-  font-size: 30px;
-  font-weight: 700;
-  opacity: 0.92;
+/* subtle divider like food list */
+.drink-row:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.drinks-arrow {
-  margin-left: 10px;
-  font-size: 20px;
-  opacity: 0.9;
+/* selected: gentle lift + soft highlight */
+.drink-row.selected {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  transform: translateY(-1px);
 }
 
-.drinks-right {
-  font-family: "Playfair Display", serif;
-  font-size: 15px;
-  font-style: italic;
-  opacity: 0.75;
+/* label same as food-name strength */
+.drink-label {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  color: rgba(245, 245, 245, 0.95);
 }
 
-/* Nav arrow button */
+/* dot indicator */
+.drink-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(245, 245, 245, 0.45);
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.drink-row.selected .drink-dot {
+  border-color: rgba(245, 245, 245, 0.85);
+  background: rgba(245, 245, 245, 0.85);
+}
+
+/* ---------- Name row ---------- */
+.name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding-top: 14px;
+  margin-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.name-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(245, 245, 245, 0.7);
+}
+
+.name-input {
+  flex: 1;
+  border-radius: 14px;
+  padding: 10px 12px;
+
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  color: rgba(245, 245, 245, 0.95);
+  outline: none;
+
+  /* ✅ prevents iPhone zoom */
+  font-size: 16px;
+
+  transition:
+    border 0.2s ease,
+    background 0.2s ease;
+}
+
+.name-input:focus {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* ---------- Confirm button uses your existing .primary-btn ---------- */
+.primary-btn {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.primary-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---------- Nav arrow (same as GuestView) ---------- */
 .nav-arrow {
   width: 36px;
   height: 36px;
@@ -122,20 +192,20 @@
   cursor: pointer;
 
   transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.25s ease;
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .nav-arrow:hover {
-  transform: translateX(-2px);
+  transform: translateX(-1px);
   background: rgba(255, 255, 255, 0.1);
   box-shadow:
     0 8px 20px rgba(0, 0, 0, 0.35),
-    0 0 14px rgba(255, 210, 120, 0.18);
+    0 0 14px rgba(255, 210, 120, 0.12);
 }
 
 .nav-arrow:active {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }

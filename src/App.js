@@ -85,12 +85,12 @@ export default function App() {
         );
 
         const foodsData = active
-          .filter((r) => r.type === "food")
+          .filter((r) => String(r.type).trim().toLowerCase() === "food")
           .sort((a, b) => Number(a.order) - Number(b.order))
           .map((r) => ({ name: r.name, description: r.description }));
 
         const drinksData = active
-          .filter((r) => r.type === "drink")
+          .filter((r) => String(r.type).trim().toLowerCase() === "drink")
           .sort((a, b) => Number(a.order) - Number(b.order))
           .map((r) => r.name);
 
@@ -116,8 +116,6 @@ export default function App() {
         {view === "guest" && (
           <GuestView
             foods={foods}
-            menuLoading={menuLoading}
-            menuError={menuError}
             onOpenDrinks={() => setView("drinks")}
             onOpenKitchen={() => setView("kitchen")}
             onBack={() => setView("welcome")}
