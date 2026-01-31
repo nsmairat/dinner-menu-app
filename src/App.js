@@ -1,4 +1,5 @@
 // src/App.js
+// src/App.js
 import { useEffect, useState } from "react";
 import "./App.css";
 
@@ -14,9 +15,11 @@ export default function App() {
   const [view, setView] = useState("welcome");
   const [orders, setOrders] = useState([]);
 
-  // Menu data from Google Sheet (CSV)
+  // Menu data
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+
+  // ✅ REQUIRED for Netlify / CI
   const [menuLoading, setMenuLoading] = useState(true);
   const [menuError, setMenuError] = useState("");
 
@@ -31,7 +34,7 @@ export default function App() {
 
         const text = await res.text();
 
-        // CSV parser that supports commas inside quotes
+        // CSV parser (handles commas inside quotes)
         function parseCSV(csvText) {
           const rows = [];
           let row = [];
@@ -61,10 +64,12 @@ export default function App() {
               cell += char;
             }
           }
+
           if (cell.length || row.length) {
             row.push(cell.trim());
             rows.push(row);
           }
+
           return rows;
         }
 
@@ -76,7 +81,9 @@ export default function App() {
 
         const rows = dataRows.map((vals) => {
           const obj = {};
-          headers.forEach((h, i) => (obj[h] = (vals[i] || "").trim()));
+          headers.forEach((h, i) => {
+            obj[h] = (vals[i] || "").trim();
+          });
           return obj;
         });
 
@@ -85,12 +92,15 @@ export default function App() {
         );
 
         const foodsData = active
-          .filter((r) => String(r.type).trim().toLowerCase() === "food")
+          .filter((r) => String(r.type).toLowerCase() === "food")
           .sort((a, b) => Number(a.order) - Number(b.order))
-          .map((r) => ({ name: r.name, description: r.description }));
+          .map((r) => ({
+            name: r.name,
+            description: r.description,
+          }));
 
         const drinksData = active
-          .filter((r) => String(r.type).trim().toLowerCase() === "drink")
+          .filter((r) => String(r.type).toLowerCase() === "drink")
           .sort((a, b) => Number(a.order) - Number(b.order))
           .map((r) => r.name);
 
@@ -111,6 +121,12 @@ export default function App() {
   return (
     <div className="app">
       <div className="phone">
+        {/* ✅ prevents blank screen while loading */}
+        {menuLoading && <div className="menu-empty">Loading menu…</div>}
+        {!menuLoading && menuError && (
+          <div className="menu-empty">Menu error: {menuError}</div>
+        )}
+
         {view === "welcome" && <Welcome onContinue={() => setView("guest")} />}
 
         {view === "guest" && (
