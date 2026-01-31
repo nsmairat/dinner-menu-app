@@ -97,24 +97,19 @@
     opacity: 0.28;
   }
 }
-
+:root {
+  --text: rgba(245, 245, 245, 0.92);
+  --muted: rgba(245, 245, 245, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --card: rgba(255, 255, 255, 0.06);
+}
 /* “Phone” wrapper (content always above the background) */
 .phone {
-  position: relative;
-  z-index: 2;
-
   width: 100%;
   max-width: 420px;
-
-  /* IMPORTANT:
-     keep it transparent-ish so the background shows through
-     (this removes the "box inside a box" feeling) */
-  background: rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(10px);
-
-  border-radius: 26px;
-  padding: 22px 18px;
-  box-sizing: border-box;
+  min-height: 100vh; /* ✅ gives full height so you can position */
+  display: flex;
+  flex-direction: column; /* ✅ does NOT center vertically */
 }
 
 /* Nice on desktop */

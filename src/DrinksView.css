@@ -1,8 +1,10 @@
 /* ===== Drinks card header (match GuestView section title style) ===== */
+/* DrinksView.css (CLEAN) */
+
 .drinks-card .menu-title {
   font-family: "Playfair Display", serif;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 700;
   text-align: center;
   margin: 0 0 10px;
   color: rgba(245, 245, 245, 0.9);
@@ -17,14 +19,12 @@
   color: rgba(245, 245, 245, 0.7);
 }
 
-/* ===== Drink options list (more airy like food list) ===== */
 .drink-options {
   display: flex;
   flex-direction: column;
   margin: 6px 0 16px;
 }
 
-/* each row like your food rows: softer, with subtle divider */
 .drink-row {
   width: 100%;
   padding: 14px 6px;
@@ -46,13 +46,11 @@
     transform 0.2s ease;
 }
 
-/* subtle divider line like food-card */
 .drink-row:not(:last-child) {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0;
 }
 
-/* selected = gentle glow, not a harsh block */
 .drink-row.selected {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -60,14 +58,12 @@
   transform: translateY(-1px);
 }
 
-/* label matches food-name strength (not too bold) */
 .drink-label {
   font-size: 16px;
   font-weight: 500;
   color: rgba(245, 245, 245, 0.95);
 }
 
-/* dot keeps your style but softer */
 .drink-dot {
   width: 14px;
   height: 14px;
@@ -82,7 +78,6 @@
   background: rgba(245, 245, 245, 0.85);
 }
 
-/* ===== Name row (match card rhythm + spacing) ===== */
 .name-row {
   display: flex;
   align-items: center;
@@ -100,7 +95,6 @@
   color: rgba(245, 245, 245, 0.7);
 }
 
-/* input: less harsh + darker placeholder feeling */
 .name-input {
   flex: 1;
   border-radius: 14px;
@@ -111,6 +105,7 @@
 
   color: rgba(245, 245, 245, 0.95);
   outline: none;
+  font-size: 16px;
 
   transition:
     border 0.2s ease,
@@ -122,23 +117,7 @@
   background: rgba(0, 0, 0, 0.22);
 }
 
-/* if you ever re-add placeholder later */
-.name-input::placeholder {
-  color: rgba(245, 245, 245, 0.35);
-}
-
-/* button disabled state (keep yours) */
 .primary-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
-}
-.name-input {
-  font-size: 16px;
-}
-.drinks-card .menu-title {
-  font-size: 22px;
-}
-
-.drink-row {
-  font-size: 16px;
 }

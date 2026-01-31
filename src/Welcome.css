@@ -1,19 +1,33 @@
-.welcome {
+.welcome.screen {
   flex: 1;
-  min-height: calc(100vh - 44px);
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  justify-content: flex-start; /* ✅ pushes content upward */
+  padding-top: 4vh; /* ✅ smaller = higher */
 
   text-align: center;
   gap: 28px;
-  padding: 0 22px;
 
   position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
+/* keep other pages centered if you want */
+.guest.screen,
+.drinks.screen,
+.thanks.screen {
+  justify-content: flex-start;
+}
 /* Optional little “badge” if you use it */
 .party-badge {
   font-size: 19px;
@@ -84,8 +98,6 @@
 
 /* ✨ hover magic */
 .primary-btn:hover {
-  transform: translateY(-2px);
-
   background: rgba(255, 255, 255, 0.12);
 
   box-shadow:
@@ -95,7 +107,6 @@
 
 /* tap / click */
 .primary-btn:active {
-  transform: scale(0.96);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 .primary-btn::after {
@@ -116,11 +127,36 @@
 .primary-btn:hover::after {
   opacity: 0.35;
 }
-.primary-btn:active {
-  transform: scale(0.97);
-}
+
 .party-accent {
   font-size: 10px;
   opacity: 0.5;
   margin-top: -6px;
+}
+.welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  /* ✅ THIS is the “move up” */
+  justify-content: flex-start;
+  padding-top: 6vh;
+
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ✅ EXTRA: physically lift the content block */
+
+/* ✅ EXTRA: physically lift the content block */
+.welcome > * {
+  position: relative;
+  top: -40px; /* adjust: -20 / -40 */
+}
+.welcome {
+  outline: 3px solid hotpink;
 }

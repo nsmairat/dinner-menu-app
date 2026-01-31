@@ -5,7 +5,10 @@ body {
   background: #0f0f10;
   color: #f5f5f5;
   font-family: "Playfair Display", serif;
+
+  font-size: 16px; /* base */
 }
+
 body {
   font-size: 16px;
 }

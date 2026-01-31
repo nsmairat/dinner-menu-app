@@ -1,15 +1,30 @@
+/* GuestView.css (CLEAN) */
+
 .guest {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.menu-title {
+/* Top title */
+.screen-title {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin: 0 0 18px;
+  color: rgba(245, 245, 245, 0.95);
   text-align: center;
-  font-size: 18px;
+}
+
+/* Food section title */
+.food-card-header {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
   font-weight: 700;
-  color: rgba(245, 245, 245, 0.92);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+  color: rgba(245, 245, 245, 0.88);
 }
 
 .food-items {
@@ -37,22 +52,23 @@
 }
 
 .food-name {
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   color: rgba(245, 245, 245, 0.95);
   margin-bottom: 6px;
 }
 
 .food-desc {
   font-size: 14px;
-  line-height: 1.45;
-  color: rgba(245, 245, 245, 0.72);
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.65);
 }
 
-/* Drinks bar same width as card */
+/* Drinks bar */
 .drinks-bar {
   width: 100%;
   border-radius: 18px;
-  padding: 14px 16px;
+  padding: 16px 18px;
 
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -66,73 +82,25 @@
 }
 
 .drinks-left {
+  font-size: 30px;
   font-weight: 700;
   opacity: 0.92;
 }
 
 .drinks-arrow {
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 20px;
   opacity: 0.9;
 }
 
 .drinks-right {
   font-family: "Playfair Display", serif;
-  font-size: 18px;
+  font-size: 15px;
   font-style: italic;
   opacity: 0.75;
 }
 
-/* optional kitchen link (you can remove if you want) */
-
-.screen-title {
-  font-family: "Playfair Display", serif;
-  font-size: 30px; /* ↓ slightly smaller than welcome */
-  font-weight: 500;
-  letter-spacing: 0.5px;
-
-  margin: 0 0 18px;
-  color: rgba(245, 245, 245, 0.95);
-
-  text-align: center;
-}
-.menu-title,
-.food-card-header {
-  font-family: "Playfair Display", serif;
-  font-size: 20px;
-  font-weight: 500;
-
-  margin-bottom: 12px;
-  text-align: center;
-
-  color: rgba(245, 245, 245, 0.88);
-}
-.food-name,
-.drink-label {
-  font-size: 16px;
-  font-weight: 500;
-
-  color: rgba(245, 245, 245, 0.95);
-}
-.food-desc {
-  font-size: 14px;
-  line-height: 1.5;
-
-  color: rgba(245, 245, 245, 0.65);
-}
-.menu-subtitle,
-.drinks-right {
-  font-size: 15px;
-  font-style: italic;
-
-  color: rgba(245, 245, 245, 0.7);
-}
-.name-label {
-  font-size: 14px;
-  font-weight: 500;
-
-  color: rgba(245, 245, 245, 0.7);
-}
+/* Nav arrow button */
 .nav-arrow {
   width: 36px;
   height: 36px;
@@ -151,7 +119,6 @@
   border-radius: 12px;
 
   backdrop-filter: blur(8px);
-
   cursor: pointer;
 
   transition:
@@ -160,57 +127,15 @@
     box-shadow 0.25s ease,
     opacity 0.25s ease;
 }
-:root {
-  --text: rgba(245, 245, 245, 0.92);
-  --muted: rgba(245, 245, 245, 0.72);
-  --border: rgba(255, 255, 255, 0.12);
-  --card: rgba(255, 255, 255, 0.06);
-}
 
-/* smooth sizing across phones */
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  color: var(--text);
-  font-size: 16px; /* base */
-  line-height: 1.5;
-}
-
-/* one “system” for titles/subtitles across all pages */
-.screen-title {
-  font-size: 28px;
-  letter-spacing: 0.5px;
-}
-.menu-title {
-  font-size: 22px;
-  font-weight: 700;
-  text-align: center;
-}
-.menu-subtitle {
-  font-size: 15px;
-  color: var(--muted);
-  text-align: center;
-}
-/* hover = gentle lift + glow */
 .nav-arrow:hover {
   transform: translateX(-2px);
   background: rgba(255, 255, 255, 0.1);
-  background: transparent;
   box-shadow:
     0 8px 20px rgba(0, 0, 0, 0.35),
     0 0 14px rgba(255, 210, 120, 0.18);
 }
 
-/* tap */
 .nav-arrow:active {
   transform: scale(0.92);
-}
-
-/* optional: make it less dominant */
-.nav-arrow {
-  opacity: 0.9;
 }
