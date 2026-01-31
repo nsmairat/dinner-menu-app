@@ -132,3 +132,13 @@
   opacity: 0.45;
   cursor: not-allowed;
 }
+.name-input {
+  font-size: 16px;
+}
+.drinks-card .menu-title {
+  font-size: 22px;
+}
+
+.drink-row {
+  font-size: 16px;
+}

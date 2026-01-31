@@ -160,7 +160,41 @@
     box-shadow 0.25s ease,
     opacity 0.25s ease;
 }
+:root {
+  --text: rgba(245, 245, 245, 0.92);
+  --muted: rgba(245, 245, 245, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --card: rgba(255, 255, 255, 0.06);
+}
 
+/* smooth sizing across phones */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px; /* base */
+  line-height: 1.5;
+}
+
+/* one “system” for titles/subtitles across all pages */
+.screen-title {
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+.menu-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+.menu-subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+}
 /* hover = gentle lift + glow */
 .nav-arrow:hover {
   transform: translateX(-2px);

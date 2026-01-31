@@ -128,3 +128,8 @@
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
   }
 }
+/* iPhone keyboard friendliness */
+.phone {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
