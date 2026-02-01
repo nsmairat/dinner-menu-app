@@ -160,3 +160,6 @@
 .nav-arrow:active {
   transform: scale(0.92);
 }
+.screen {
+  min-height: 100svh; /* small viewport height – Safari safe */
+}

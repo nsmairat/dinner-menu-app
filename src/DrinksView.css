@@ -1,5 +1,7 @@
 /* DrinksView.css — CLEAN + matches GuestView */
-
+.screen {
+  min-height: 100svh; /* small viewport height – Safari safe */
+}
 .drinks {
   display: flex;
   flex-direction: column;

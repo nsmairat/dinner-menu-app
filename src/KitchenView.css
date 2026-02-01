@@ -1,5 +1,7 @@
 /* src/KitchenView.css */
-
+.screen {
+  min-height: 100svh; /* small viewport height – Safari safe */
+}
 .kitchen {
   display: flex;
   flex-direction: column;
