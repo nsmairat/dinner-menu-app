@@ -17,18 +17,20 @@ export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
   async function handleConfirm() {
     const order = { name: name.trim(), drink: selectedDrink };
 
-    // ✅ stop zoom + keyboard
+    // ✅ force iPhone Safari to exit input/keyboard mode
     document.activeElement?.blur();
-    window.scrollTo(0, 0);
 
-    // ✅ go to Thank You immediately
+    // ✅ reset any weird scroll position from keyboard
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+    // ✅ show Thank You immediately (fast)
     onConfirm(order);
 
-    // send in background
+    // ✅ send in background (so no delay)
     try {
       await sendOrderToSheet(order);
-    } catch (err) {
-      console.log("Order send failed:", err);
+    } catch (e) {
+      console.log("send failed", e);
     }
   }
 
