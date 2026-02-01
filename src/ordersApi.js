@@ -3,33 +3,36 @@
 export const ORDERS_API_URL =
   "https://script.google.com/macros/s/AKfycbxdWHEEFip0T-gAqILSvGEuyqLW60WAHTzHn4ODGw9LdPtGQA4WbrELGTRE3VFecs4-/exec";
 
-// Send order (fire & forget)
-export async function sendOrderToSheet(order) {
-  await fetch(ORDERS_API_URL, {
+// ✅ Send order (fire & forget) — keep no-cors for POST
+export function sendOrderToSheet(order) {
+  fetch(ORDERS_API_URL, {
     method: "POST",
     mode: "no-cors",
     body: JSON.stringify(order),
   });
 }
 
-/**
- * Reset sheet (fire & forget)
- * IMPORTANT:
- * - no-cors means we can't read response (that's OK)
- * - we rely on the Apps Script doing the reset
- */
+// ✅ Reset sheet — expects JSON from doGet?action=reset
 export async function resetOrdersSheet() {
-  await fetch(`${ORDERS_API_URL}?action=reset`, {
-    method: "POST",
-    mode: "no-cors",
-  });
+  const res = await fetch(`${ORDERS_API_URL}?action=reset&t=${Date.now()}`);
+  const data = await res.json();
+
+  if (!data.ok) {
+    throw new Error(data.error || "Reset failed");
+  }
+
+  return true;
 }
 
-/**
- * Fetch orders
- * If your Kitchen view already shows orders, you likely fetch them elsewhere.
- * For now we keep this safe so your app doesn't crash.
- */
+// ✅ Fetch orders — expects JSON from doGet?action=list
 export async function fetchOrders() {
-  return [];
+  const res = await fetch(`${ORDERS_API_URL}?action=list&t=${Date.now()}`);
+  const data = await res.json();
+
+  if (!data.ok) {
+    throw new Error(data.error || "Fetch failed");
+  }
+
+  // data.orders should be an array
+  return Array.isArray(data.orders) ? data.orders : [];
 }
