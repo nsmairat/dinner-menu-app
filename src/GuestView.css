@@ -6,27 +6,6 @@
   gap: 18px;
 }
 
-.topbar {
-  display: grid;
-  grid-template-columns: 36px 1fr 36px;
-  align-items: center;
-  padding: 6px 6px 0; /* ✅ gives breathing room */
-}
-
-.topbar-spacer {
-  width: 36px;
-  height: 36px;
-}
-
-.screen-title {
-  font-family: "Playfair Display", serif;
-  font-size: 28px;
-  font-weight: 500;
-  text-align: center;
-  color: rgba(245, 245, 245, 0.95);
-  margin: 0;
-}
-
 /* ---------- Card ---------- */
 .food-card {
   padding: 20px 18px; /* more air */
@@ -87,7 +66,7 @@
   font-family: "Playfair Display", serif;
   border-radius: 20px;
   padding: 16px 20px;
-
+  gap: 12px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(10px);
@@ -132,30 +111,8 @@
   color: rgba(245, 245, 245, 0.9);
   flex-shrink: 0;
 }
-.drinks-bar {
-  gap: 12px;
-}
+
 /* ---------- Nav arrow ---------- */
-.nav-arrow {
-  width: 36px;
-  height: 36px;
-  margin-left: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 22px;
-  color: rgba(245, 245, 245, 0.85);
-
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-
-  transition: transform 0.2s ease;
-}
 
 .nav-arrow:active {
   transform: scale(0.92);

@@ -1,28 +1,9 @@
-/* Whole screen */
 .kitchen {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Card */
-.kitchen-card {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 🔥 centers everything inside */
-  text-align: center;
-  gap: 14px;
-}
-.menu-title {
-  padding-top: 20px;
-}
-/* Orders title */
-.kitchen-card .menu-title {
-  text-align: center;
-}
-
-/* Reset button wrapper */
 .reset-wrap {
   display: flex;
   justify-content: center;
@@ -30,95 +11,44 @@
   margin-bottom: 30px;
 }
 
-/* Reset button */
 .reset-btn {
-  width: auto;
   min-width: 160px;
 }
 
-/* Loading / empty text */
-.muted {
-  text-align: center;
-  opacity: 0.7;
+.kitchen-card {
+  align-items: stretch;
 }
 
-/* Orders list */
 .orders-list {
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 320px; /* keeps it elegant */
+  max-width: 360px; /* a touch wider feels calmer */
 }
 
-/* Each order row */
 .order-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 12px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px; /* ✨ THIS is the space you want */
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.order-row:last-child {
+  border-bottom: none;
 }
 
 .order-name {
-  font-weight: 600;
-}
-
-.order-drink {
-  opacity: 0.7;
-  margin-left: 16px;
-}
-
-/* Name + drink */
-.order-name,
-.order-drink {
-  font-weight: 600;
-}
-
-.kitchen-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 10px 0 14px;
-}
-
-.danger-btn,
-.secondary-btn {
-  border-radius: 14px;
-  padding: 10px 14px;
-  font-weight: 800;
-  font-size: 14px;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(245, 245, 245, 0.95);
-}
-
-.danger-btn {
-  border-color: rgba(255, 120, 120, 0.25);
-  background: rgba(255, 120, 120, 0.1);
-}
-
-.danger-btn:disabled,
-.secondary-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.kitchen-muted {
-  text-align: center;
-  opacity: 0.7;
-  font-style: italic;
-  padding: 16px 0;
-}
-
-.order-name {
-  font-weight: 800;
+  font-weight: 700;
   opacity: 0.92;
+  text-align: left;
 }
 
 .order-drink {
   font-style: italic;
   opacity: 0.8;
+  white-space: nowrap;
+  text-align: right;
 }
-
-/* make the reset button not full width */

@@ -1,9 +1,16 @@
 /* src/App.css */
+
+/* ---------- Base ---------- */
 input,
 button,
 textarea {
   -webkit-text-size-adjust: 100%;
 }
+
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --text: rgba(245, 245, 245, 0.92);
   --muted: rgba(245, 245, 245, 0.72);
@@ -11,7 +18,16 @@ textarea {
   --card: rgba(255, 255, 255, 0.06);
 }
 
-/* App background = one shared animated world */
+/* ---------- App background ---------- */
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+}
+
 .app {
   min-height: 100vh;
   display: flex;
@@ -21,11 +37,10 @@ textarea {
   background: #1c1a18;
   position: relative;
   overflow: hidden;
-
-  isolation: isolate; /* keeps ::before/::after visible */
+  isolation: isolate;
 }
 
-/* shared animated background */
+/* animated background */
 .app::before {
   content: "";
   position: absolute;
@@ -100,7 +115,7 @@ textarea {
 
 @keyframes starDrift {
   from {
-    transform: translateY(0px);
+    transform: translateY(0);
     opacity: 0.18;
   }
   to {
@@ -109,7 +124,7 @@ textarea {
   }
 }
 
-/* Phone wrapper (content above the animated background) */
+/* ---------- Phone wrapper ---------- */
 .phone {
   position: relative;
   z-index: 2;
@@ -118,23 +133,20 @@ textarea {
   max-width: 420px;
 
   border-radius: 26px;
-  padding: 22px 18px;
-  box-sizing: border-box;
-
-  /* important: keep transparent-ish so background shows */
+  padding: 34px 18px 22px; /* 👈 main breathing room */
   background: rgba(0, 0, 0, 0.08);
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Calm overlay INSIDE the phone so selections stay readable */
 .phone::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 26px;
 
-  background: rgba(10, 9, 8, 0.4); /* adjust 0.30–0.55 */
+  background: rgba(10, 9, 8, 0.4);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
@@ -142,13 +154,26 @@ textarea {
   pointer-events: none;
 }
 
-/* Make sure the screens sit above the overlay */
 .phone > * {
   position: relative;
   z-index: 1;
 }
 
-/* Nice on desktop */
+/* ---------- Shared Topbar (Guest + Kitchen) ---------- */
+.topbar {
+  width: 100%; /* ✅ IMPORTANT */
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 6px 6px 0;
+}
+
+.topbar-spacer {
+  width: 36px;
+  height: 36px;
+}
+
+/* ---------- Desktop polish ---------- */
 @media (min-width: 700px) {
   .app {
     padding: 42px 18px;
@@ -158,4 +183,92 @@ textarea {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
   }
+}
+/* ===== SHARED TOPBAR (ALL PAGES) ===== */
+.topbar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  padding: 6px 6px 0;
+}
+
+/* right-side spacer keeps the title perfectly centered */
+.topbar-spacer {
+  width: 36px;
+  height: 36px;
+}
+
+/* arrow button style (match Tonight) */
+.nav-arrow {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+
+  font-size: 22px;
+  line-height: 1;
+
+  border-radius: 14px;
+
+  /* ❌ remove border */
+  border: none;
+
+  /* ✅ visible “glass edge” */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    0 6px 18px rgba(0, 0, 0, 0.25);
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+
+  color: rgba(245, 245, 245, 0.95);
+
+  padding: 0;
+  margin: 0;
+}
+.nav-arrow:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+.nav-arrow:active {
+  transform: scale(0.95);
+}
+
+.screen-title {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+  color: rgba(245, 245, 245, 0.95);
+  margin: 0;
+}
+
+/* TEMP FORCE: nav arrow must look like the other pages */
+button.nav-arrow {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  width: 44px !important;
+  height: 44px !important;
+
+  display: grid !important;
+  place-items: center !important;
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: -1px; /* keeps it tight */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 14px !important;
+
+  color: rgba(245, 245, 245, 0.95) !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  backdrop-filter: blur(10px) !important;
 }
