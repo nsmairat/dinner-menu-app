@@ -55,13 +55,17 @@
 .order-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: 14px;
+  width: 100%;
+  padding: 12px 0;
+}
 
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.order-name {
+  font-weight: 600;
+}
 
-  margin-bottom: 8px;
+.order-drink {
+  opacity: 0.7;
+  margin-left: 16px;
 }
 
 /* Name + drink */
