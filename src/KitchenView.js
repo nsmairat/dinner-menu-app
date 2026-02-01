@@ -25,14 +25,20 @@ export default function KitchenView({ onBack }) {
     const ok = window.confirm("Reset all orders? This will clear the sheet.");
     if (!ok) return;
 
+    setResetting(true);
+    setErr("");
+
     try {
-      setResetting(true);
-      setErr("");
-      await resetOrdersSheet();
-      await loadOrders();
+      // fire-and-forget
+      resetOrdersSheet();
+
+      // give Google Sheets a moment
+      setTimeout(() => {
+        loadOrders();
+        setResetting(false); // ✅ ALWAYS release the button
+      }, 1200);
     } catch (e) {
-      setErr(e?.message || "Reset failed");
-    } finally {
+      setErr("Reset failed");
       setResetting(false);
     }
   }
