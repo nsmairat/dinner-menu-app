@@ -1,38 +1,40 @@
+// src/KitchenView.js
 import { useEffect, useState } from "react";
 import "./KitchenView.css";
 import { fetchOrders, resetOrdersSheet } from "./ordersApi";
 
 export default function KitchenView({ onBack }) {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+  const [error, setError] = useState("");
   const [resetting, setResetting] = useState(false);
 
   async function loadOrders() {
     try {
-      setErr("");
-      const list = await fetchOrders();
-      setOrders(Array.isArray(list) ? list : []);
-    } catch (e) {
-      setErr(e?.message || "Could not load orders.");
-      setOrders([]);
-    } finally {
-      setLoading(false);
+      setError("");
+      const data = await fetchOrders();
+
+      // Expecting: [{ name: "Nila", drink: "Fanta" }, ...]
+      setOrders(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err?.message || "Failed to fetch");
     }
   }
 
   async function handleReset() {
-    const ok = window.confirm("Reset all orders? This cannot be undone.");
+    const ok = window.confirm("Clear all orders?");
     if (!ok) return;
 
     try {
       setResetting(true);
-      setErr("");
+      setError("");
 
-      await resetOrdersSheet(); // clears Google Sheet
-      await loadOrders(); // immediately refresh UI after reset
-    } catch (e) {
-      setErr(e?.message || "Reset failed.");
+      // Reset sheet
+      await resetOrdersSheet();
+
+      // Clear UI immediately
+      setOrders([]);
+    } catch (err) {
+      setError(err?.message || "Reset failed");
     } finally {
       setResetting(false);
     }
@@ -48,6 +50,7 @@ export default function KitchenView({ onBack }) {
     }, 3000);
 
     return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -56,40 +59,46 @@ export default function KitchenView({ onBack }) {
         <button className="nav-arrow" onClick={onBack} aria-label="Go back">
           ‹
         </button>
+
         <h1 className="screen-title">Kitchen</h1>
+
         <div className="topbar-spacer" />
       </div>
 
       <section className="card kitchen-card">
         <div className="menu-title">Orders</div>
 
-        {/* ✅ ONLY ONE BUTTON */}
-        <div className="kitchen-actions">
-          <button
-            className="primary-btn"
-            onClick={handleReset}
-            disabled={resetting}
-          >
-            {resetting ? "Resetting…" : "Reset Orders"}
-          </button>
-        </div>
+        <button
+          className="primary-btn"
+          onClick={handleReset}
+          disabled={resetting}
+          style={{ width: "100%", marginTop: 10 }}
+        >
+          {resetting ? "Resetting…" : "Reset Orders"}
+        </button>
 
-        {err && <div className="form-error">❌ {err}</div>}
-
-        {loading ? (
-          <div className="menu-empty">Loading…</div>
-        ) : orders.length === 0 ? (
-          <div className="menu-empty">No orders to show.</div>
-        ) : (
-          <ul className="orders-list">
-            {orders.map((o, idx) => (
-              <li className="order-row" key={idx}>
-                <span className="order-name">{o.name}</span>
-                <span className="order-drink">{o.drink}</span>
-              </li>
-            ))}
-          </ul>
+        {error && (
+          <div className="form-error" style={{ marginTop: 12 }}>
+            ❌ {error}
+          </div>
         )}
+
+        <div style={{ marginTop: 14 }}>
+          {orders.length === 0 ? (
+            <div className="menu-subtitle" style={{ opacity: 0.9 }}>
+              No orders to show.
+            </div>
+          ) : (
+            <div className="orders-list">
+              {orders.map((o, idx) => (
+                <div className="order-row" key={idx}>
+                  <span className="order-name">{o.name}</span>
+                  <span className="order-drink">{o.drink}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
     </div>
   );
