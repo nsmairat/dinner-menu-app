@@ -14,8 +14,6 @@ export default function KitchenView({ orders, onBack }) {
 
       <section className="card kitchen-card">
         <div className="menu-title">Orders</div>
-        <div className="menu-subtitle">Name + drink only</div>
-
         {orders.length === 0 ? (
           <div className="kitchen-empty">No orders yet ✨</div>
         ) : (

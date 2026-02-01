@@ -1,5 +1,3 @@
-// src/App.js
-// src/App.js
 import { useEffect, useState } from "react";
 import "./App.css";
 
@@ -11,18 +9,56 @@ import KitchenView from "./KitchenView";
 
 import { MENU_CSV_URL } from "./sheets";
 
+// ✅ CSV parser that supports commas inside quotes
+function parseCSV(csvText) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < csvText.length; i++) {
+    const char = csvText[i];
+    const next = csvText[i + 1];
+
+    if (char === '"' && inQuotes && next === '"') {
+      cell += '"';
+      i++;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === "," && !inQuotes) {
+      row.push(cell.trim());
+      cell = "";
+    } else if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (cell.length || row.length) {
+        row.push(cell.trim());
+        rows.push(row);
+        row = [];
+        cell = "";
+      }
+    } else {
+      cell += char;
+    }
+  }
+
+  if (cell.length || row.length) {
+    row.push(cell.trim());
+    rows.push(row);
+  }
+
+  return rows;
+}
+
 export default function App() {
   const [view, setView] = useState("welcome");
   const [orders, setOrders] = useState([]);
 
-  // Menu data
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
 
-  // ✅ REQUIRED for Netlify / CI
   const [menuLoading, setMenuLoading] = useState(true);
   const [menuError, setMenuError] = useState("");
 
+  // ✅ Load menu in the background (do NOT block Welcome screen)
   useEffect(() => {
     async function loadMenu() {
       try {
@@ -34,45 +70,6 @@ export default function App() {
 
         const text = await res.text();
 
-        // CSV parser (handles commas inside quotes)
-        function parseCSV(csvText) {
-          const rows = [];
-          let row = [];
-          let cell = "";
-          let inQuotes = false;
-
-          for (let i = 0; i < csvText.length; i++) {
-            const char = csvText[i];
-            const next = csvText[i + 1];
-
-            if (char === '"' && inQuotes && next === '"') {
-              cell += '"';
-              i++;
-            } else if (char === '"') {
-              inQuotes = !inQuotes;
-            } else if (char === "," && !inQuotes) {
-              row.push(cell.trim());
-              cell = "";
-            } else if ((char === "\n" || char === "\r") && !inQuotes) {
-              if (cell.length || row.length) {
-                row.push(cell.trim());
-                rows.push(row);
-                row = [];
-                cell = "";
-              }
-            } else {
-              cell += char;
-            }
-          }
-
-          if (cell.length || row.length) {
-            row.push(cell.trim());
-            rows.push(row);
-          }
-
-          return rows;
-        }
-
         const table = parseCSV(text).filter((r) => r.some((c) => c !== ""));
         if (table.length < 2) throw new Error("Menu sheet looks empty.");
 
@@ -81,9 +78,7 @@ export default function App() {
 
         const rows = dataRows.map((vals) => {
           const obj = {};
-          headers.forEach((h, i) => {
-            obj[h] = (vals[i] || "").trim();
-          });
+          headers.forEach((h, i) => (obj[h] = (vals[i] || "").trim()));
           return obj;
         });
 
@@ -92,15 +87,12 @@ export default function App() {
         );
 
         const foodsData = active
-          .filter((r) => String(r.type).toLowerCase() === "food")
+          .filter((r) => r.type === "food")
           .sort((a, b) => Number(a.order) - Number(b.order))
-          .map((r) => ({
-            name: r.name,
-            description: r.description,
-          }));
+          .map((r) => ({ name: r.name, description: r.description }));
 
         const drinksData = active
-          .filter((r) => String(r.type).toLowerCase() === "drink")
+          .filter((r) => r.type === "drink")
           .sort((a, b) => Number(a.order) - Number(b.order))
           .map((r) => r.name);
 
@@ -121,17 +113,14 @@ export default function App() {
   return (
     <div className="app">
       <div className="phone">
-        {/* ✅ prevents blank screen while loading */}
-        {menuLoading && <div className="menu-empty">Loading menu…</div>}
-        {!menuLoading && menuError && (
-          <div className="menu-empty">Menu error: {menuError}</div>
-        )}
-
+        {/* ✅ Welcome ALWAYS shows immediately */}
         {view === "welcome" && <Welcome onContinue={() => setView("guest")} />}
 
         {view === "guest" && (
           <GuestView
             foods={foods}
+            menuLoading={menuLoading}
+            menuError={menuError}
             onOpenDrinks={() => setView("drinks")}
             onOpenKitchen={() => setView("kitchen")}
             onBack={() => setView("welcome")}
@@ -141,6 +130,8 @@ export default function App() {
         {view === "drinks" && (
           <DrinksView
             drinks={drinks}
+            menuLoading={menuLoading}
+            menuError={menuError}
             onBack={() => setView("guest")}
             onConfirm={(order) => {
               setOrders((prev) => [...prev, order]);
@@ -157,11 +148,7 @@ export default function App() {
         )}
 
         {view === "kitchen" && (
-          <KitchenView
-            orders={orders}
-            onBack={() => setView("guest")}
-            onClear={() => setOrders([])}
-          />
+          <KitchenView orders={orders} onBack={() => setView("guest")} />
         )}
       </div>
     </div>
