@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./DrinksView.css";
-import { sendOrder } from "./ordersApi";
+import { sendOrderToSheet } from "./ordersApi";
 
 export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
   const [selectedDrink, setSelectedDrink] = useState("");
@@ -18,7 +18,7 @@ export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
       setSendError("");
 
       // ✅ send to Google Sheet first
-      await sendOrder(order);
+      await sendOrderToSheet(order);
 
       // ✅ then continue your app flow
       onConfirm(order);
