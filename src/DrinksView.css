@@ -159,6 +159,8 @@
   transition:
     border 0.2s ease,
     background 0.2s ease;
+  font-size: 16px; /* ✅ prevents iPhone zoom */
+  line-height: 1.2;
 }
 
 .name-input:focus {

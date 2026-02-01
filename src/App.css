@@ -1,5 +1,9 @@
 /* src/App.css */
-
+input,
+button,
+textarea {
+  -webkit-text-size-adjust: 100%;
+}
 :root {
   --text: rgba(245, 245, 245, 0.92);
   --muted: rgba(245, 245, 245, 0.72);

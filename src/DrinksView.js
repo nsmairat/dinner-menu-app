@@ -15,19 +15,19 @@ export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
   const canConfirm = selectedDrink && name.trim().length > 0;
 
   async function handleConfirm() {
-    const order = {
-      name: name.trim(),
-      drink: selectedDrink,
-    };
+    const order = { name: name.trim(), drink: selectedDrink };
 
-    // ✅ 1) Go to Thank You screen instantly (no waiting)
+    // ✅ stop zoom + keyboard
+    document.activeElement?.blur();
+    window.scrollTo(0, 0);
+
+    // ✅ go to Thank You immediately
     onConfirm(order);
 
-    // ✅ 2) Send order to Google Sheets in the background
+    // send in background
     try {
       await sendOrderToSheet(order);
     } catch (err) {
-      // Keep UX fast and calm — just log if something goes wrong
       console.log("Order send failed:", err);
     }
   }
