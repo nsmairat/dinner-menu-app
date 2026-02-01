@@ -59,32 +59,36 @@ export default function KitchenView({ onBack }) {
       </div>
 
       <section className="card kitchen-card">
-        <div className="menu-title">Orders</div>
+        <div>
+          <div className="menu-title">Orders</div>
 
-        <button
-          className="primary-btn"
-          onClick={handleReset}
-          disabled={resetting}
-        >
-          {resetting ? "Resetting…" : "Reset Orders"}
-        </button>
+          <div className="reset-wrap">
+            <button
+              className="primary-btn reset-btn"
+              onClick={handleReset}
+              disabled={resetting}
+            >
+              {resetting ? "Resetting…" : "Reset Orders"}
+            </button>
+          </div>
 
-        {err && <div className="form-error">❌ {err}</div>}
+          {err && <div className="form-error">❌ {err}</div>}
 
-        {loading ? (
-          <div className="muted">Loading…</div>
-        ) : orders.length === 0 ? (
-          <div className="muted">No orders to show.</div>
-        ) : (
-          <ul className="orders-list">
-            {orders.map((o, idx) => (
-              <li key={`${o.name}-${o.drink}-${idx}`} className="order-row">
-                <span className="order-name">{o.name}</span>
-                <span className="order-drink">{o.drink}</span>
-              </li>
-            ))}
-          </ul>
-        )}
+          {loading ? (
+            <div className="muted">Loading…</div>
+          ) : orders.length === 0 ? (
+            <div className="muted">No orders to show.</div>
+          ) : (
+            <ul className="orders-list">
+              {orders.map((o, idx) => (
+                <li key={`${o.name}-${o.drink}-${idx}`} className="order-row">
+                  <span className="order-name">{o.name}</span>
+                  <span className="order-drink">{o.drink}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </section>
     </div>
   );
