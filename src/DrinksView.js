@@ -1,3 +1,4 @@
+// src/DrinksView.js
 import { useState } from "react";
 import "./DrinksView.css";
 import { sendOrderToSheet } from "./ordersApi";
@@ -5,36 +6,31 @@ import { sendOrderToSheet } from "./ordersApi";
 export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
   const [selectedDrink, setSelectedDrink] = useState("");
   const [name, setName] = useState("");
-  const [sending, setSending] = useState(false);
-  const [sendError, setSendError] = useState("");
-
-  const canConfirm = selectedDrink && name.trim().length > 0 && !sending;
-
-  async function handleConfirm() {
-    const order = { name: name.trim(), drink: selectedDrink };
-
-    try {
-      setSending(true);
-      setSendError("");
-
-      // ✅ send to Google Sheet first
-      await sendOrderToSheet(order);
-
-      // ✅ then continue your app flow
-      onConfirm(order);
-    } catch (err) {
-      setSendError(
-        err?.message || "Could not save the order. Please try again.",
-      );
-    } finally {
-      setSending(false);
-    }
-  }
 
   const list =
     drinks.length > 0
       ? drinks
       : ["Red wine", "White wine", "Sparkling water", "Still water"];
+
+  const canConfirm = selectedDrink && name.trim().length > 0;
+
+  async function handleConfirm() {
+    const order = {
+      name: name.trim(),
+      drink: selectedDrink,
+    };
+
+    // ✅ 1) Go to Thank You screen instantly (no waiting)
+    onConfirm(order);
+
+    // ✅ 2) Send order to Google Sheets in the background
+    try {
+      await sendOrderToSheet(order);
+    } catch (err) {
+      // Keep UX fast and calm — just log if something goes wrong
+      console.log("Order send failed:", err);
+    }
+  }
 
   return (
     <div className="drinks screen">
@@ -72,6 +68,7 @@ export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
 
         <div className="name-row">
           <div className="name-label">This drink is for</div>
+
           <input
             className="name-input"
             value={name}
@@ -79,17 +76,16 @@ export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
             type="text"
             inputMode="text"
             autoComplete="name"
+            placeholder=""
           />
         </div>
-
-        {sendError && <div className="form-error">❌ {sendError}</div>}
 
         <button
           className="primary-btn"
           disabled={!canConfirm}
           onClick={handleConfirm}
         >
-          {sending ? "Saving…" : "Confirm"}
+          Confirm
         </button>
       </section>
     </div>
