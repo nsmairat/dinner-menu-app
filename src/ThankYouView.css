@@ -33,15 +33,12 @@
   font-weight: 700;
   color: rgba(245, 245, 245, 0.95);
   text-decoration: none;
-  text-decoration-color: rgba(255, 255, 255, 0.22);
-  text-underline-offset: 3px;
-
   -webkit-user-select: none;
   user-select: none;
 
   /* make long-press feel responsive */
   transition:
-    transform 0.12s ease,
+    s transform 0.12s ease,
     opacity 0.12s ease;
 }
 
