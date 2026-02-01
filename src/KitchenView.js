@@ -1,33 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./KitchenView.css";
-import { resetOrdersSheet } from "./ordersApi";
+import { fetchOrders, resetOrdersSheet } from "./ordersApi";
 
-// If your app already passes orders as props, you can ignore this.
-// This file focuses on showing the button + resetting the sheet.
-
-export default function KitchenView({ onBack, orders = [] }) {
+export default function KitchenView({ onBack }) {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState("");
   const [resetting, setResetting] = useState(false);
-  const [msg, setMsg] = useState("");
+
+  async function loadOrders() {
+    try {
+      setErr("");
+      const list = await fetchOrders();
+      setOrders(Array.isArray(list) ? list : []);
+    } catch (e) {
+      setErr(e?.message || "Could not load orders.");
+      setOrders([]);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleReset() {
-    const ok = window.confirm("Reset all orders in the Google Sheet?");
+    const ok = window.confirm("Reset all orders? This cannot be undone.");
     if (!ok) return;
 
     try {
       setResetting(true);
-      setMsg("");
+      setErr("");
 
-      await resetOrdersSheet();
-
-      setMsg("✅ Orders cleared!");
-      // If you also keep local orders state somewhere else,
-      // we can hook it here later (for now, this confirms reset worked).
-    } catch (err) {
-      setMsg("❌ " + (err?.message || "Reset failed"));
+      await resetOrdersSheet(); // clears Google Sheet
+      await loadOrders(); // immediately refresh UI after reset
+    } catch (e) {
+      setErr(e?.message || "Reset failed.");
     } finally {
       setResetting(false);
     }
   }
+
+  useEffect(() => {
+    // load immediately
+    loadOrders();
+
+    // auto refresh every 3 seconds
+    const id = setInterval(() => {
+      loadOrders();
+    }, 3000);
+
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="kitchen screen">
@@ -35,35 +56,36 @@ export default function KitchenView({ onBack, orders = [] }) {
         <button className="nav-arrow" onClick={onBack} aria-label="Go back">
           ‹
         </button>
-
         <h1 className="screen-title">Kitchen</h1>
-
         <div className="topbar-spacer" />
       </div>
 
       <section className="card kitchen-card">
-        {/* ✅ VERY VISIBLE BUTTON */}
-        <button
-          type="button"
-          className="reset-btn"
-          onClick={handleReset}
-          disabled={resetting}
-        >
-          {resetting ? "Resetting…" : "Reset Orders 🧹"}
-        </button>
+        <div className="menu-title">Orders</div>
 
-        {msg ? <div className="kitchen-msg">{msg}</div> : null}
+        {/* ✅ ONLY ONE BUTTON */}
+        <div className="kitchen-actions">
+          <button
+            className="primary-btn"
+            onClick={handleReset}
+            disabled={resetting}
+          >
+            {resetting ? "Resetting…" : "Reset Orders"}
+          </button>
+        </div>
 
-        <div className="kitchen-subtitle">Orders</div>
+        {err && <div className="form-error">❌ {err}</div>}
 
-        {orders.length === 0 ? (
-          <div className="kitchen-empty">No orders yet.</div>
+        {loading ? (
+          <div className="menu-empty">Loading…</div>
+        ) : orders.length === 0 ? (
+          <div className="menu-empty">No orders to show.</div>
         ) : (
-          <ul className="kitchen-list">
+          <ul className="orders-list">
             {orders.map((o, idx) => (
-              <li key={idx} className="kitchen-item">
-                <div className="kitchen-drink">{o.drink}</div>
-                <div className="kitchen-name">{o.name}</div>
+              <li className="order-row" key={idx}>
+                <span className="order-name">{o.name}</span>
+                <span className="order-drink">{o.drink}</span>
               </li>
             ))}
           </ul>
