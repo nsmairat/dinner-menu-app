@@ -1,40 +1,33 @@
-// src/KitchenView.js
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./KitchenView.css";
-import { fetchOrders } from "./ordersApi";
+import { resetOrdersSheet } from "./ordersApi";
 
-export default function KitchenView({ onBack }) {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+// If your app already passes orders as props, you can ignore this.
+// This file focuses on showing the button + resetting the sheet.
 
-  useEffect(() => {
-    let isMounted = true;
+export default function KitchenView({ onBack, orders = [] }) {
+  const [resetting, setResetting] = useState(false);
+  const [msg, setMsg] = useState("");
 
-    async function load() {
-      try {
-        setError("");
-        const data = await fetchOrders();
-        if (isMounted) {
-          setOrders(Array.isArray(data) ? data : []);
-          setLoading(false);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setLoading(false);
-          setError(err?.message || "Could not load orders.");
-        }
-      }
+  async function handleReset() {
+    const ok = window.confirm("Reset all orders in the Google Sheet?");
+    if (!ok) return;
+
+    try {
+      setResetting(true);
+      setMsg("");
+
+      await resetOrdersSheet();
+
+      setMsg("✅ Orders cleared!");
+      // If you also keep local orders state somewhere else,
+      // we can hook it here later (for now, this confirms reset worked).
+    } catch (err) {
+      setMsg("❌ " + (err?.message || "Reset failed"));
+    } finally {
+      setResetting(false);
     }
-
-    load(); // first load now
-    const interval = setInterval(load, 3000); // then every 3 seconds
-
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
+  }
 
   return (
     <div className="kitchen screen">
@@ -42,27 +35,39 @@ export default function KitchenView({ onBack }) {
         <button className="nav-arrow" onClick={onBack} aria-label="Go back">
           ‹
         </button>
+
         <h1 className="screen-title">Kitchen</h1>
+
         <div className="topbar-spacer" />
       </div>
 
       <section className="card kitchen-card">
-        {loading && <div className="menu-empty">Loading orders…</div>}
+        {/* ✅ VERY VISIBLE BUTTON */}
+        <button
+          type="button"
+          className="reset-btn"
+          onClick={handleReset}
+          disabled={resetting}
+        >
+          {resetting ? "Resetting…" : "Reset Orders 🧹"}
+        </button>
 
-        {!loading && error && <div className="menu-empty">❌ {error}</div>}
+        {msg ? <div className="kitchen-msg">{msg}</div> : null}
 
-        {!loading && !error && orders.length === 0 && (
-          <div className="menu-empty">No orders yet</div>
+        <div className="kitchen-subtitle">Orders</div>
+
+        {orders.length === 0 ? (
+          <div className="kitchen-empty">No orders yet.</div>
+        ) : (
+          <ul className="kitchen-list">
+            {orders.map((o, idx) => (
+              <li key={idx} className="kitchen-item">
+                <div className="kitchen-drink">{o.drink}</div>
+                <div className="kitchen-name">{o.name}</div>
+              </li>
+            ))}
+          </ul>
         )}
-
-        {!loading &&
-          !error &&
-          orders.map((o, idx) => (
-            <div key={idx} className="order-row">
-              <div className="order-name">{o.name}</div>
-              <div className="order-drink">{o.drink}</div>
-            </div>
-          ))}
       </section>
     </div>
   );

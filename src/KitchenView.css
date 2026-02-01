@@ -1,69 +1,69 @@
 /* src/KitchenView.css */
-.screen {
-  min-height: 100svh; /* small viewport height – Safari safe */
-}
-.kitchen {
+
+/* Make sure the screen has breathing room */
+.kitchen.screen {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  padding: 10px 0;
 }
 
-/* topbar matches DrinksView */
-.topbar {
-  display: grid;
-  grid-template-columns: 36px 1fr 36px;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.topbar-spacer {
-  width: 36px;
-  height: 36px;
-}
-
-.kitchen-card {
-  padding: 18px 16px;
-}
-
-/* Empty state */
-.kitchen-empty {
+/* BIG debug label at top (we will remove later) */
+.kitchen-debug {
   text-align: center;
-  font-style: italic;
-  padding: 18px 0;
-  color: rgba(245, 245, 245, 0.72);
-}
-
-/* Orders list */
-.kitchen-list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-}
-
-.kitchen-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.kitchen-row:last-child {
-  border-bottom: none;
-}
-
-.kitchen-name {
-  font-size: 16px;
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: rgba(245, 245, 245, 0.95);
 }
 
-.kitchen-drink {
-  font-size: 14px;
+/* Ensure your card does not crop the button */
+.kitchen-card {
+  overflow: visible;
+}
+
+/* Orders list rows (simple + readable) */
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.order-row:last-child {
+  border-bottom: none;
+}
+
+.order-name {
+  font-weight: 700;
+  color: rgba(245, 245, 245, 0.95);
+}
+
+.order-drink {
+  opacity: 0.75;
   font-style: italic;
-  text-align: right;
-  color: rgba(245, 245, 245, 0.72);
-  max-width: 55%;
+  color: rgba(245, 245, 245, 0.9);
+}
+
+/* Empty states */
+.menu-empty {
+  text-align: center;
+  opacity: 0.7;
+  padding: 14px 0;
+}
+
+/* Make the reset button definitely visible */
+.primary-btn {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.primary-btn.danger {
+  background: rgba(255, 80, 80, 0.14);
+  border: 1px solid rgba(255, 80, 80, 0.35);
+  color: rgba(255, 220, 220, 0.95);
 }
