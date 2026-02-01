@@ -157,7 +157,11 @@ export default function App() {
         )}
 
         {view === "kitchen" && (
-          <KitchenView orders={orders} onBack={() => setView("guest")} />
+          <KitchenView
+            orders={orders}
+            onBack={() => setView("guest")}
+            onClear={() => setOrders([])}
+          />
         )}
       </div>
     </div>

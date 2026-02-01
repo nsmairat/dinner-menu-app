@@ -6,7 +6,7 @@
   gap: 16px;
 }
 
-/* ---------- Top bar ---------- */
+/* topbar matches DrinksView */
 .topbar {
   display: grid;
   grid-template-columns: 36px 1fr 36px;
@@ -19,125 +19,49 @@
   height: 36px;
 }
 
-.screen-title {
-  font-family: "Playfair Display", serif;
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  margin: 0;
-  text-align: center;
-  color: rgba(245, 245, 245, 0.95);
-}
-
-/* ---------- Card ---------- */
 .kitchen-card {
   padding: 18px 16px;
 }
 
-.menu-title {
-  font-family: "Playfair Display", serif;
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0 0 8px;
-  text-align: center;
-  color: rgba(245, 245, 245, 0.88);
-}
-
-.menu-subtitle {
-  text-align: center;
-  margin: 0 0 16px;
-  font-size: 15px;
-  font-style: italic;
-  line-height: 1.5;
-  color: rgba(245, 245, 245, 0.7);
-}
-
-/* ---------- Empty state ---------- */
+/* Empty state */
 .kitchen-empty {
   text-align: center;
-  padding: 18px 8px;
-  border: 1px dashed rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
+  font-style: italic;
+  padding: 18px 0;
+  color: rgba(245, 245, 245, 0.72);
 }
 
-.kitchen-empty-title {
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: rgba(245, 245, 245, 0.92);
-}
-
-.kitchen-empty-text {
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(245, 245, 245, 0.68);
-}
-
-/* ---------- Orders list ---------- */
-.order-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Orders list */
+.kitchen-list {
   display: flex;
   flex-direction: column;
+  margin-top: 8px;
 }
 
-.order-item {
+.kitchen-row {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
+  gap: 14px;
 
-  padding: 14px 10px;
+  padding: 14px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.order-item:last-child {
+.kitchen-row:last-child {
   border-bottom: none;
 }
 
-.order-left {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.order-name {
+.kitchen-name {
   font-size: 16px;
   font-weight: 600;
   color: rgba(245, 245, 245, 0.95);
 }
 
-.order-drink {
+.kitchen-drink {
   font-size: 14px;
   font-style: italic;
-  color: rgba(245, 245, 245, 0.7);
-}
-
-.order-badge {
-  font-size: 13px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(245, 245, 245, 0.85);
-  backdrop-filter: blur(8px);
-}
-
-/* ---------- Optional secondary button ---------- */
-.secondary-btn {
-  margin-top: 16px;
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 16px;
-
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(245, 245, 245, 0.9);
-
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.secondary-btn:active {
-  transform: scale(0.98);
+  text-align: right;
+  color: rgba(245, 245, 245, 0.72);
+  max-width: 55%;
 }

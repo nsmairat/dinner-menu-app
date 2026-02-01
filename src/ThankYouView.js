@@ -1,18 +1,54 @@
+// src/ThankYouView.js
+import { useRef } from "react";
 import "./ThankYouView.css";
 
-export default function ThankYouView({ onDone }) {
+export default function ThankYouView({ onDone, onOpenKitchen }) {
+  const pressTimerRef = useRef(null);
+
+  function startLongPress() {
+    if (!onOpenKitchen) return;
+
+    // long-press after 900ms
+    pressTimerRef.current = setTimeout(() => {
+      onOpenKitchen();
+    }, 900);
+  }
+
+  function cancelLongPress() {
+    if (pressTimerRef.current) {
+      clearTimeout(pressTimerRef.current);
+      pressTimerRef.current = null;
+    }
+  }
+
   return (
     <div className="thanks screen">
-      <div className="topbar"></div>
+      <div className="thanks-card card">
+        <div className="thanks-title">Thank you ♡</div>
 
-      <section className="card thanks-card">
-        <div className="thanks-big">Thank you ♡</div>
-        <div className="thanks-small">Your drink request is on its way.</div>
+        <p className="thanks-text">
+          Your{" "}
+          <span
+            className="secret-kitchen"
+            onMouseDown={startLongPress}
+            onMouseUp={cancelLongPress}
+            onMouseLeave={cancelLongPress}
+            onTouchStart={startLongPress}
+            onTouchEnd={cancelLongPress}
+            onTouchCancel={cancelLongPress}
+            aria-label="Hidden kitchen"
+          >
+            drink
+          </span>{" "}
+          is on the way ✨
+        </p>
 
         <button className="primary-btn" onClick={onDone}>
           Back to menu
         </button>
-      </section>
+
+        <div className="thanks-hint"> </div>
+      </div>
     </div>
   );
 }

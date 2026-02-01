@@ -1,18 +1,56 @@
-.thanks-card {
+/* src/ThankYouView.css */
+
+.thanks {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  padding: 22px 18px;
+  justify-content: center;
+  gap: 16px;
 }
 
-.thanks-big {
-  font-size: 24px;
-  font-weight: 800;
+.thanks-card {
+  padding: 22px 18px;
+  text-align: center;
+}
+
+.thanks-title {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 10px;
   color: rgba(245, 245, 245, 0.95);
 }
 
-.thanks-small {
-  text-align: center;
-  color: rgba(245, 245, 245, 0.7);
+.thanks-text {
+  margin: 0 0 18px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(245, 245, 245, 0.78);
+}
+
+/* Hidden kitchen trigger: looks like text */
+.secret-kitchen {
+  display: inline-block;
+  font-weight: 700;
+  color: rgba(245, 245, 245, 0.95);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.22);
+  text-underline-offset: 3px;
+
+  -webkit-user-select: none;
+  user-select: none;
+
+  /* make long-press feel responsive */
+  transition:
+    transform 0.12s ease,
+    opacity 0.12s ease;
+}
+
+.secret-kitchen:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+/* optional spacing below button */
+.thanks .primary-btn {
+  width: 100%;
 }

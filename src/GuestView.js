@@ -12,7 +12,6 @@ export default function GuestView({ foods = [], onOpenDrinks, onBack }) {
 
         <div className="topbar-spacer" />
       </div>
-
       <section className="card food-card">
         <div className="food-card-header">Food</div>
 
@@ -29,7 +28,6 @@ export default function GuestView({ foods = [], onOpenDrinks, onBack }) {
           </div>
         )}
       </section>
-
       <button className="drinks-bar" onClick={onOpenDrinks}>
         <span className="drinks-left">
           Drinks <span className="drinks-arrow">›</span>
