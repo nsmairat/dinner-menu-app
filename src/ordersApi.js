@@ -1,7 +1,7 @@
 // src/ordersApi.js
 
 const ORDERS_WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxUU98YT6JRJIqQLPPc7K9ZNZTIZX1hHMzPxYc1Ndx-oPu2tFS1VENE7CaHiWRFii5u/exec";
+  "https://script.google.com/macros/s/AKfycbxdWHEEFip0T-gAqILSvGEuyqLW60WAHTzHn4ODGw9LdPtGQA4WbrELGTRE3VFecs4-/exec";
 
 /**
  * Send an order to Google Apps Script without triggering CORS preflight.
