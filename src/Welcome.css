@@ -1,3 +1,5 @@
+/* src/Welcome.css */
+
 .welcome.screen {
   flex: 1;
   min-height: 100svh;
@@ -5,81 +7,148 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  justify-content: flex-start; /* ✅ pushes content upward */
-  padding-top: 4vh; /* ✅ smaller = higher */
+  justify-content: center;
 
   text-align: center;
-  gap: 28px;
+  gap: 22px;
+  padding: 0 22px;
 
   position: relative;
   overflow: hidden;
-  isolation: isolate;
+  isolation: isolate; /* keeps background layers behind */
 }
-.screen {
-  flex: 1;
+
+/* full-page animated color + shimmer */
+.welcome.screen::before {
+  content: "";
+  position: absolute;
+  inset: -220px;
+
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 90, 200, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 25%,
+      rgba(90, 200, 255, 0.16),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 60% 80%,
+      rgba(255, 210, 120, 0.14),
+      transparent 60%
+    ),
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 35%,
+      rgba(255, 210, 120, 0.07) 50%,
+      rgba(180, 230, 255, 0.06) 65%,
+      transparent 100%
+    );
+
+  filter: blur(12px);
+  animation: shimmer 3.8s ease-in-out infinite;
+  z-index: -2;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-55%) rotate(0.5deg);
+  }
+  50% {
+    transform: translateX(10%) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateX(-55%) rotate(0.5deg);
+  }
+}
+
+/* subtle sparkles */
+.welcome.screen::after {
+  content: "✦   ✦      ✦    ✦   ✦      ✦    ✦";
+  position: absolute;
+  inset: 0;
+
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding-top: 10vh;
+  letter-spacing: 18px;
+  font-size: 14px;
+
+  color: rgba(245, 245, 245, 0.22);
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.12),
+    0 0 14px rgba(255, 210, 120, 0.1),
+    0 0 12px rgba(90, 200, 255, 0.1);
+
+  animation: starDrift 5.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* keep other pages centered if you want */
-.guest.screen,
-.drinks.screen,
-.thanks.screen {
-  justify-content: flex-start;
+@keyframes starDrift {
+  from {
+    transform: translateY(0px);
+    opacity: 0.16;
+  }
+  to {
+    transform: translateY(10px);
+    opacity: 0.26;
+  }
 }
-/* Optional little “badge” if you use it */
+
+/* decorative badge (NOT a button) */
 .party-badge {
-  margin-top: 12vh;
-  margin-bottom: 14px;
-
-  font-size: 19px;
+  font-size: 16px;
   letter-spacing: 1.6px;
   text-transform: uppercase;
 
   color: rgba(255, 235, 190, 0.85);
+  opacity: 0.9;
 
-  padding: 0; /* ⛔ no button padding */
+  background: none;
+  border: none;
+  padding: 0;
 
-  background: none; /* ⛔ no button background */
-  border: none; /* ⛔ no border */
-
-  opacity: 0.85;
-
-  /* subtle glow, decorative only */
   text-shadow:
     0 0 8px rgba(255, 210, 120, 0.25),
     0 0 16px rgba(255, 180, 90, 0.15);
 
-  pointer-events: none; /* 🚫 cannot be clicked */
+  /* important: allow long-press if you use it on "Welcome" */
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .welcome-title {
   font-family: "Playfair Display", serif;
   font-size: 38px;
+  line-height: 1.12;
+  margin: 0;
 
-  margin-top: 50px;
   color: rgba(245, 245, 245, 0.95);
   text-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
 }
 
 .welcome-text {
-  max-width: 290px;
-  font-size: 17px;
-  line-height: 1.75;
+  max-width: 320px;
   margin: 0;
+
+  font-size: 17px;
+  line-height: 1.7;
   color: rgba(245, 245, 245, 0.82);
 }
 
-/* your divider line (if used) */
-.divider {
-  opacity: 0.7;
-}
-
-/* button like a shiny ticket */
+/* shared button style (matches your other pages) */
 .primary-btn {
-  padding: 10px 18px;
+  padding: 10px 18px; /* short, not full-width */
   border-radius: 16px;
+
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.4px;
@@ -93,72 +162,45 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
   cursor: pointer;
 
+  position: relative;
+  overflow: hidden;
+
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
 }
 
-/* ✨ hover magic */
 .primary-btn:hover {
   background: rgba(255, 255, 255, 0.12);
-
   box-shadow:
     0 18px 38px rgba(0, 0, 0, 0.35),
     0 0 18px rgba(255, 210, 120, 0.18);
 }
 
-/* tap / click */
 .primary-btn:active {
+  transform: scale(0.98);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
+
+/* glossy sweep on hover */
 .primary-btn::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
+
   background: linear-gradient(
     120deg,
     transparent,
-    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.22),
     transparent
   );
+
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .primary-btn:hover::after {
   opacity: 0.35;
-}
-
-.welcome {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-  /* ✅ THIS is the “move up” */
-  justify-content: flex-start;
-  padding-top: 22vh;
-
-  gap: 28px;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-/* ✅ EXTRA: physically lift the content block */
-
-/* ✅ EXTRA: physically lift the content block */
-.welcome > * {
-  position: relative;
-  top: -40px; /* adjust: -20 / -40 */
-}
-.welcome {
-  outline: 3px solid hotpink;
-  outline: 6px solid hotpink !important;
-}
-.welcome .welcome-title {
-  margin-top: 22px !important;
 }

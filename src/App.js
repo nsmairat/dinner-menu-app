@@ -114,8 +114,12 @@ export default function App() {
     <div className="app">
       <div className="phone">
         {/* ✅ Welcome ALWAYS shows immediately */}
-        {view === "welcome" && <Welcome onContinue={() => setView("guest")} />}
-
+        {view === "welcome" && (
+          <Welcome
+            onContinue={() => setView("guest")}
+            onOpenKitchen={() => setView("kitchen")}
+          />
+        )}
         {view === "guest" && (
           <GuestView
             foods={foods}

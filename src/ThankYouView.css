@@ -1,29 +1,28 @@
 /* src/ThankYouView.css */
 .screen {
-  min-height: 100svh; /* small viewport height – Safari safe */
+  min-height: 100svh; /* Safari-safe viewport */
 }
 
 .thanks {
   min-height: 100svh;
   box-sizing: border-box;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* ✅ keeps card centered */
+  align-items: center;
   text-align: center;
 
   gap: 16px;
 
-  /* ✅ the real fix: iPhone top/bottom safe area */
+  /* iPhone safe areas */
   padding-top: calc(env(safe-area-inset-top) + 18px);
   padding-bottom: calc(env(safe-area-inset-bottom) + 18px);
   padding-left: 18px;
   padding-right: 18px;
 }
-.thanks {
-  overflow: hidden;
-}
+
 .thanks-card {
   padding: 22px 18px;
   text-align: center;
@@ -44,27 +43,7 @@
   color: rgba(245, 245, 245, 0.78);
 }
 
-/* Hidden kitchen trigger: looks like text */
-.secret-kitchen {
-  display: inline-block;
-  font-weight: 700;
-  color: rgba(245, 245, 245, 0.95);
-  text-decoration: none;
-  -webkit-user-select: none;
-  user-select: none;
-
-  /* make long-press feel responsive */
-  transition:
-    transform 0.12s ease,
-    opacity 0.12s ease;
-}
-
-.secret-kitchen:active {
-  transform: scale(0.96);
-  opacity: 0.9;
-}
-
-/* optional spacing below button */
+/* button spacing */
 .thanks .primary-btn {
   width: 100%;
 }
