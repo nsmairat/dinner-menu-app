@@ -113,47 +113,46 @@ export default function App() {
   return (
     <div className="app">
       <div className="phone">
-        {/* ✅ Welcome ALWAYS shows immediately */}
-        {view === "welcome" && (
-          <Welcome
-            onContinue={() => setView("guest")}
-            onOpenKitchen={() => setView("kitchen")}
-          />
-        )}
-        {view === "guest" && (
-          <GuestView
-            foods={foods}
-            menuLoading={menuLoading}
-            menuError={menuError}
-            onOpenDrinks={() => setView("drinks")}
-            onOpenKitchen={() => setView("kitchen")}
-            onBack={() => setView("welcome")}
-          />
-        )}
+        {/* ✅ smooth feel between screens */}
+        <div className="view-surface" key={view}>
+          {view === "welcome" && (
+            <Welcome
+              onContinue={() => setView("guest")}
+              onOpenKitchen={() => setView("kitchen")}
+            />
+          )}
 
-        {view === "drinks" && (
-          <DrinksView
-            drinks={drinks}
-            menuLoading={menuLoading}
-            menuError={menuError}
-            onBack={() => setView("guest")}
-            onConfirm={(order) => {
-              setOrders((prev) => [...prev, order]);
-              setView("thanks");
-            }}
-          />
-        )}
+          {view === "guest" && (
+            <GuestView
+              foods={foods}
+              menuLoading={menuLoading}
+              menuError={menuError}
+              onOpenDrinks={() => setView("drinks")}
+              onBack={() => setView("welcome")}
+            />
+          )}
 
-        {view === "thanks" && (
-          <ThankYouView
-            onDone={() => setView("guest")}
-            onOpenKitchen={() => setView("kitchen")}
-          />
-        )}
+          {view === "drinks" && (
+            <DrinksView
+              drinks={drinks}
+              menuLoading={menuLoading}
+              menuError={menuError}
+              onBack={() => setView("guest")}
+              onConfirm={(order) => {
+                setOrders((prev) => [...prev, order]);
+                setView("thanks");
+              }}
+            />
+          )}
 
-        {view === "kitchen" && (
-          <KitchenView orders={orders} onBack={() => setView("guest")} />
-        )}
+          {view === "thanks" && (
+            <ThankYouView onDone={() => setView("guest")} />
+          )}
+
+          {view === "kitchen" && (
+            <KitchenView onBack={() => setView("guest")} />
+          )}
+        </div>
       </div>
     </div>
   );

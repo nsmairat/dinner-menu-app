@@ -1,6 +1,5 @@
-/* src/ThankYouView.css */
 .screen {
-  min-height: 100svh; /* Safari-safe viewport */
+  min-height: 100svh;
 }
 
 .thanks {
@@ -10,19 +9,19 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
 
-  gap: 16px;
+  /* ⬆️ move content UP but keep balance */
+  justify-content: flex-start;
 
-  /* iPhone safe areas */
-  padding-top: calc(env(safe-area-inset-top) + 18px);
+  /* ✨ higher + airy */
+  padding-top: calc(env(safe-area-inset-top) + 14vh);
   padding-bottom: calc(env(safe-area-inset-bottom) + 18px);
   padding-left: 18px;
   padding-right: 18px;
-}
 
+  gap: 18px;
+}
 .thanks-card {
   padding: 22px 18px;
   text-align: center;
@@ -43,7 +42,6 @@
   color: rgba(245, 245, 245, 0.78);
 }
 
-/* button spacing */
 .thanks .primary-btn {
   width: 100%;
 }

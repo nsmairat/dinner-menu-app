@@ -1,206 +1,101 @@
 /* src/Welcome.css */
 
-.welcome.screen {
-  flex: 1;
+/* Page container — airy & calm */
+.welcome-screen {
   min-height: 100svh;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-  gap: 22px;
-  padding: 0 22px;
-
-  position: relative;
-  overflow: hidden;
-  isolation: isolate; /* keeps background layers behind */
-}
-
-/* full-page animated color + shimmer */
-.welcome.screen::before {
-  content: "";
-  position: absolute;
-  inset: -220px;
-
-  background:
-    radial-gradient(
-      circle at 20% 30%,
-      rgba(255, 90, 200, 0.18),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 80% 25%,
-      rgba(90, 200, 255, 0.16),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 60% 80%,
-      rgba(255, 210, 120, 0.14),
-      transparent 60%
-    ),
-    linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.05) 35%,
-      rgba(255, 210, 120, 0.07) 50%,
-      rgba(180, 230, 255, 0.06) 65%,
-      transparent 100%
-    );
-
-  filter: blur(12px);
-  animation: shimmer 3.8s ease-in-out infinite;
-  z-index: -2;
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-55%) rotate(0.5deg);
-  }
-  50% {
-    transform: translateX(10%) rotate(-0.5deg);
-  }
-  100% {
-    transform: translateX(-55%) rotate(0.5deg);
-  }
-}
-
-/* subtle sparkles */
-.welcome.screen::after {
-  content: "✦   ✦      ✦    ✦   ✦      ✦    ✦";
-  position: absolute;
-  inset: 0;
-
   display: flex;
   justify-content: center;
   align-items: flex-start;
 
-  padding-top: 10vh;
-  letter-spacing: 18px;
-  font-size: 14px;
-
-  color: rgba(245, 245, 245, 0.22);
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.12),
-    0 0 14px rgba(255, 210, 120, 0.1),
-    0 0 12px rgba(90, 200, 255, 0.1);
-
-  animation: starDrift 5.5s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: -1;
+  /* ⬆️ higher on the screen, but relaxed */
+  padding: 1vh 2px;
+  box-sizing: border-box;
 }
 
-@keyframes starDrift {
-  from {
-    transform: translateY(0px);
-    opacity: 0.16;
-  }
-  to {
-    transform: translateY(10px);
-    opacity: 0.26;
-  }
+/* Glass card */
+.welcome-card {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 24px;
+
+  /* ✨ more breathing room */
+  padding: 34px 26px 30px;
+  text-align: center;
+
+  background: rgba(10, 10, 10, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+
+  /* ✅ THIS is the key: vertical air */
+  gap: 70px;
 }
 
-/* decorative badge (NOT a button) */
+/* Badge */
 .party-badge {
-  font-size: 16px;
-  letter-spacing: 1.6px;
+  font-size: 13px;
+  letter-spacing: 3px;
   text-transform: uppercase;
 
-  color: rgba(255, 235, 190, 0.85);
-  opacity: 0.9;
-
-  background: none;
-  border: none;
-  padding: 0;
-
-  text-shadow:
-    0 0 8px rgba(255, 210, 120, 0.25),
-    0 0 16px rgba(255, 180, 90, 0.15);
-
-  /* important: allow long-press if you use it on "Welcome" */
-  pointer-events: auto;
-  user-select: none;
-  -webkit-user-select: none;
+  color: rgba(255, 235, 190, 0.75);
+  text-shadow: 0 0 12px rgba(255, 210, 120, 0.16);
 }
 
+/* Title */
 .welcome-title {
   font-family: "Playfair Display", serif;
-  font-size: 38px;
+  font-size: 44px;
   line-height: 1.12;
-  margin: 0;
 
-  color: rgba(245, 245, 245, 0.95);
-  text-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+  margin: 6px 0 2px;
+
+  color: rgba(245, 245, 245, 0.97);
+  text-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
 }
 
+.welcome-title .emoji {
+  font-size: 0.85em;
+}
+
+/* Body text — slower reading */
 .welcome-text {
-  max-width: 320px;
   margin: 0;
+  font-size: 18px;
+  line-height: 1.85;
 
-  font-size: 17px;
-  line-height: 1.7;
-  color: rgba(245, 245, 245, 0.82);
+  color: rgba(245, 245, 245, 0.75);
 }
 
-/* shared button style (matches your other pages) */
-.primary-btn {
-  padding: 10px 18px; /* short, not full-width */
-  border-radius: 16px;
-
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
-
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgba(245, 245, 245, 0.95);
-
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
-  cursor: pointer;
-
-  position: relative;
-  overflow: hidden;
+/* Secret kitchen word */
+.secret-kitchen {
+  display: inline-block;
+  font-weight: 700;
+  color: rgba(245, 245, 245, 0.97);
+  user-select: none;
 
   transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    background 0.18s ease;
+    transform 0.12s ease,
+    opacity 0.12s ease;
 }
 
-.primary-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 18px 38px rgba(0, 0, 0, 0.35),
-    0 0 18px rgba(255, 210, 120, 0.18);
+.secret-kitchen:active {
+  transform: scale(0.97);
+  opacity: 0.9;
 }
 
-.primary-btn:active {
-  transform: scale(0.98);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
+/* Button — give it space to exist */
+.welcome-card .primary-btn {
+  width: 100%;
+  max-width: 240px;
+  align-self: center;
 
-/* glossy sweep on hover */
-.primary-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.22),
-    transparent
-  );
-
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.primary-btn:hover::after {
-  opacity: 0.35;
+  margin-top: 14px; /* ⬅️ space from text */
 }

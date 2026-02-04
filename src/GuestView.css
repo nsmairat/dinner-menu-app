@@ -1,20 +1,12 @@
-/* GuestView.css — polished + airy */
-
-.guest {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
 /* ---------- Card ---------- */
 .food-card {
-  padding: 20px 18px; /* more air */
+  padding: 20px 18px;
 }
 
 .food-card-header {
   font-family: "Playfair Display", serif;
-  font-size: 19px; /* smaller + elegant */
-  font-weight: 500; /* not too bold */
+  font-size: 19px;
+  font-weight: 500;
   text-align: center;
   margin: 0 0 16px;
   color: rgba(245, 245, 245, 0.9);
@@ -24,12 +16,12 @@
 .food-items {
   display: flex;
   flex-direction: column;
-  gap: 14px; /* space between items instead of harsh lines */
+  gap: 14px;
 }
 
 .food-item {
   padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* soft divider */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .food-item:last-child {
@@ -58,15 +50,25 @@
 }
 
 /* ---------- Drinks CTA ---------- */
+/* Make the page allow full-width children */
+.guest {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: stretch; /* ✅ important */
+}
+
+/* Drinks button should match the Food card width */
 .drinks-bar {
-  width: auto; /* ❌ not full width */
-  align-self: center; /* ✅ centers it */
-  min-width: 260px; /* keeps it tappable */
-  max-width: 320px;
+  width: 100%; /* ✅ same width as the card */
+  align-self: stretch; /* ✅ no centering shrink */
+  min-width: 0; /* ✅ remove pill forcing */
+  max-width: none; /* ✅ remove pill forcing */
+
   font-family: "Playfair Display", serif;
   border-radius: 20px;
   padding: 16px 20px;
-  gap: 12px;
+
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(10px);
@@ -75,7 +77,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  font-size: 19px;
+
   cursor: pointer;
 }
 
@@ -110,13 +112,4 @@
   opacity: 0.88;
   color: rgba(245, 245, 245, 0.9);
   flex-shrink: 0;
-}
-
-/* ---------- Nav arrow ---------- */
-
-.nav-arrow:active {
-  transform: scale(0.92);
-}
-.screen {
-  min-height: 100svh; /* small viewport height – Safari safe */
 }

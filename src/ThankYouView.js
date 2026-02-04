@@ -1,4 +1,3 @@
-// src/ThankYouView.js
 import "./ThankYouView.css";
 
 export default function ThankYouView({ onDone }) {
@@ -13,7 +12,7 @@ export default function ThankYouView({ onDone }) {
           Back to menu
         </button>
 
-        <div className="thanks-hint"> </div>
+        <div className="thanks-hint" />
       </div>
     </div>
   );

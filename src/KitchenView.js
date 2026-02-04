@@ -1,4 +1,3 @@
-// src/KitchenView.js
 import { useEffect, useState } from "react";
 import "./KitchenView.css";
 import { fetchOrders, resetOrdersSheet } from "./ordersApi";
@@ -25,20 +24,15 @@ export default function KitchenView({ onBack }) {
     const ok = window.confirm("Reset all orders? This will clear the sheet.");
     if (!ok) return;
 
-    setResetting(true);
-    setErr("");
-
     try {
-      // fire-and-forget
-      resetOrdersSheet();
+      setResetting(true);
+      setErr("");
 
-      // give Google Sheets a moment
-      setTimeout(() => {
-        loadOrders();
-        setResetting(false); // ✅ ALWAYS release the button
-      }, 1200);
+      await resetOrdersSheet();
+      await loadOrders();
     } catch (e) {
-      setErr("Reset failed");
+      setErr(e?.message || "Reset failed");
+    } finally {
       setResetting(false);
     }
   }
@@ -51,18 +45,14 @@ export default function KitchenView({ onBack }) {
 
   return (
     <div className="screen kitchen">
-      {/* TOP BAR */}
       <header className="topbar">
         <button className="nav-arrow" onClick={onBack} aria-label="Go back">
           ‹
         </button>
-
         <h1 className="screen-title">Kitchen</h1>
-
         <div className="topbar-spacer" />
       </header>
 
-      {/* CARD */}
       <section className="card kitchen-card">
         <div className="food-card-header">Orders</div>
 

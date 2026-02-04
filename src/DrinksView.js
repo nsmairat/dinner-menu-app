@@ -1,4 +1,3 @@
-// src/DrinksView.js
 import { useState } from "react";
 import "./DrinksView.css";
 import { sendOrderToSheet } from "./ordersApi";
@@ -17,16 +16,11 @@ export default function DrinksView({ onBack, onConfirm, drinks = [] }) {
   async function handleConfirm() {
     const order = { name: name.trim(), drink: selectedDrink };
 
-    // ✅ force iPhone Safari to exit input/keyboard mode
     document.activeElement?.blur();
-
-    // ✅ reset any weird scroll position from keyboard
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-    // ✅ show Thank You immediately (fast)
     onConfirm(order);
 
-    // ✅ send in background (so no delay)
     try {
       await sendOrderToSheet(order);
     } catch (e) {
