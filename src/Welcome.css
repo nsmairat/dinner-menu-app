@@ -1,84 +1,102 @@
-/* src/Welcome.css */
+/* ===== WELCOME PAGE — OPEN & AIRY ===== */
 
-/* Page container — airy & calm */
 .welcome-screen {
   min-height: 100svh;
   display: flex;
-  justify-content: center;
   align-items: flex-start;
+  justify-content: center;
 
-  /* ⬆️ higher on the screen, but relaxed */
-  padding: 1vh 2px;
-  box-sizing: border-box;
+  padding-top: 6vh;
+  padding-left: 18px;
+  padding-right: 18px;
 }
 
-/* Glass card */
+/* container WITHOUT dark background */
 .welcome-card {
   width: 100%;
-  max-width: 360px;
-  border-radius: 24px;
-
-  /* ✨ more breathing room */
-  padding: 34px 26px 30px;
-  text-align: center;
-
-  background: rgba(10, 10, 10, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  box-shadow:
-    0 26px 70px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  max-width: 380px;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 34px; /* ✨ AIR */
 
-  /* ✅ THIS is the key: vertical air */
-  gap: 70px;
+  padding: 10px 6px; /* minimal padding */
+  text-align: center;
+
+  position: relative;
 }
 
-/* Badge */
+/* soft colorful aura (NOT a box) */
+.welcome-card::after {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  border-radius: 40px;
+
+  background:
+    radial-gradient(circle at top, rgba(255, 90, 200, 0.18), transparent 60%),
+    radial-gradient(
+      circle at bottom,
+      rgba(255, 210, 120, 0.16),
+      transparent 60%
+    );
+
+  filter: blur(24px);
+  z-index: -1;
+}
+
+/* badge */
 .party-badge {
-  font-size: 13px;
-  letter-spacing: 3px;
+  font-size: 18px; /* ⬆️ bigger */
+  letter-spacing: 3px; /* ✨ more luxe spacing */
   text-transform: uppercase;
 
-  color: rgba(255, 235, 190, 0.75);
-  text-shadow: 0 0 12px rgba(255, 210, 120, 0.16);
+  margin-bottom: 6px; /* closer to title */
+  margin-top: 0;
+
+  color: rgba(255, 235, 190, 0.9);
+
+  text-shadow:
+    0 0 10px rgba(255, 210, 120, 0.35),
+    0 0 20px rgba(255, 180, 90, 0.2);
+
+  opacity: 0.95;
 }
 
-/* Title */
+/* title */
 .welcome-title {
   font-family: "Playfair Display", serif;
   font-size: 44px;
-  line-height: 1.12;
-
-  margin: 6px 0 2px;
+  line-height: 1.08;
+  margin-bottom: 10px;
 
   color: rgba(245, 245, 245, 0.97);
-  text-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  text-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.35),
+    0 0 26px rgba(255, 80, 200, 0.28);
 }
 
 .welcome-title .emoji {
   font-size: 0.85em;
 }
 
-/* Body text — slower reading */
+/* body text */
 .welcome-text {
-  margin: 0;
   font-size: 18px;
-  line-height: 1.85;
+  line-height: 1.9; /* ✨ looser line spacing */
 
-  color: rgba(245, 245, 245, 0.75);
+  max-width: 280px;
+  margin: 0 auto;
+
+  text-align: center;
+  color: rgba(245, 245, 245, 0.78);
 }
 
-/* Secret kitchen word */
+/* secret kitchen */
 .secret-kitchen {
-  display: inline-block;
   font-weight: 700;
-  color: rgba(245, 245, 245, 0.97);
+  color: rgba(245, 245, 245, 0.96);
   user-select: none;
 
   transition:
@@ -91,11 +109,12 @@
   opacity: 0.9;
 }
 
-/* Button — give it space to exist */
+/* button */
 .welcome-card .primary-btn {
-  width: 100%;
-  max-width: 240px;
-  align-self: center;
+  margin-top: 12px;
+  padding: 12px 28px;
 
-  margin-top: 14px; /* ⬅️ space from text */
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }

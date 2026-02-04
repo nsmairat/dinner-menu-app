@@ -1,6 +1,6 @@
 /* ---------- Card ---------- */
 .food-card {
-  padding: 20px 18px;
+  padding: 26px 22px; /* ⬅️ more air all around */
 }
 
 .food-card-header {
@@ -14,9 +14,10 @@
 
 /* ---------- Food list ---------- */
 .food-items {
+  margin-top: 18px; /* ⬅️ space between “Food” and list */
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px; /* ⬅️ more vertical breathing room */
 }
 
 .food-item {

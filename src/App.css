@@ -46,35 +46,33 @@ button {
 .app::before {
   content: "";
   position: absolute;
-  inset: -220px;
+  inset: -200px;
 
   background:
     radial-gradient(
-      circle at 20% 30%,
-      rgba(255, 90, 200, 0.22),
+      circle at 15% 25%,
+      rgba(255, 90, 200, 0.35),
       transparent 55%
     ),
     radial-gradient(
-      circle at 80% 25%,
-      rgba(90, 200, 255, 0.2),
+      circle at 85% 30%,
+      rgba(90, 200, 255, 0.35),
       transparent 55%
     ),
     radial-gradient(
-      circle at 60% 80%,
-      rgba(255, 210, 120, 0.18),
+      circle at 50% 85%,
+      rgba(255, 210, 120, 0.35),
       transparent 60%
     ),
     linear-gradient(
       120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.06) 35%,
-      rgba(255, 210, 120, 0.08) 50%,
-      rgba(180, 230, 255, 0.07) 65%,
-      transparent 100%
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 210, 120, 0.12),
+      rgba(180, 230, 255, 0.1)
     );
 
-  filter: blur(12px);
-  animation: shimmer 3.8s ease-in-out infinite;
+  filter: blur(16px);
+  animation: shimmer 6s ease-in-out infinite alternate;
   z-index: 0;
 }
 
@@ -164,8 +162,8 @@ button {
 /* ---------- Shared layout helpers ---------- */
 .screen {
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+  padding: 0 14px; /* ✅ THIS creates space from phone edges */
+  box-sizing: border-box;
 }
 
 .card {
@@ -315,4 +313,26 @@ button {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
   }
+}
+/* NEON BORDER AROUND THE PHONE */
+.phone {
+  position: relative;
+}
+
+.phone::after {
+  content: "";
+  position: absolute;
+  inset: 10px; /* border inset */
+  border-radius: 22px;
+  pointer-events: none;
+  z-index: 50;
+
+  border: 6px solid rgba(255, 70, 190, 0.9);
+  box-shadow:
+    0 0 18px rgba(255, 70, 190, 0.8),
+    0 0 38px rgba(255, 70, 190, 0.55),
+    0 0 70px rgba(255, 70, 190, 0.35);
+}
+.phone {
+  z-index: 2;
 }
