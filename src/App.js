@@ -9,7 +9,7 @@ import KitchenView from "./KitchenView";
 
 import { MENU_CSV_URL } from "./sheets";
 
-// ✅ CSV parser that supports commas inside quotes
+/* CSV parser that supports commas inside quotes */
 function parseCSV(csvText) {
   const rows = [];
   let row = [];
@@ -50,7 +50,6 @@ function parseCSV(csvText) {
 
 export default function App() {
   const [view, setView] = useState("welcome");
-  const [orders, setOrders] = useState([]);
 
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
@@ -58,7 +57,7 @@ export default function App() {
   const [menuLoading, setMenuLoading] = useState(true);
   const [menuError, setMenuError] = useState("");
 
-  // ✅ Load menu in the background (do NOT block Welcome screen)
+  /* Load menu in the background (Welcome shows instantly) */
   useEffect(() => {
     async function loadMenu() {
       try {
@@ -69,8 +68,8 @@ export default function App() {
         if (!res.ok) throw new Error(`Menu fetch failed: ${res.status}`);
 
         const text = await res.text();
-
         const table = parseCSV(text).filter((r) => r.some((c) => c !== ""));
+
         if (table.length < 2) throw new Error("Menu sheet looks empty.");
 
         const headers = table[0].map((h) => h.trim());
@@ -86,18 +85,19 @@ export default function App() {
           (r) => String(r.active).toUpperCase() === "TRUE",
         );
 
-        const foodsData = active
-          .filter((r) => r.type === "food")
-          .sort((a, b) => Number(a.order) - Number(b.order))
-          .map((r) => ({ name: r.name, description: r.description }));
+        setFoods(
+          active
+            .filter((r) => r.type === "food")
+            .sort((a, b) => Number(a.order) - Number(b.order))
+            .map((r) => ({ name: r.name, description: r.description })),
+        );
 
-        const drinksData = active
-          .filter((r) => r.type === "drink")
-          .sort((a, b) => Number(a.order) - Number(b.order))
-          .map((r) => r.name);
-
-        setFoods(foodsData);
-        setDrinks(drinksData);
+        setDrinks(
+          active
+            .filter((r) => r.type === "drink")
+            .sort((a, b) => Number(a.order) - Number(b.order))
+            .map((r) => r.name),
+        );
       } catch (err) {
         setMenuError(err?.message || "Menu failed to load.");
         setFoods([]);
@@ -113,46 +113,37 @@ export default function App() {
   return (
     <div className="app">
       <div className="phone">
-        {/* ✅ smooth feel between screens */}
-        <div className="view-surface" key={view}>
-          {view === "welcome" && (
-            <Welcome
-              onContinue={() => setView("guest")}
-              onOpenKitchen={() => setView("kitchen")}
-            />
-          )}
+        {view === "welcome" && (
+          <Welcome
+            onContinue={() => setView("guest")}
+            onOpenKitchen={() => setView("kitchen")}
+          />
+        )}
 
-          {view === "guest" && (
-            <GuestView
-              foods={foods}
-              menuLoading={menuLoading}
-              menuError={menuError}
-              onOpenDrinks={() => setView("drinks")}
-              onBack={() => setView("welcome")}
-            />
-          )}
+        {view === "guest" && (
+          <GuestView
+            foods={foods}
+            menuLoading={menuLoading}
+            menuError={menuError}
+            onOpenDrinks={() => setView("drinks")}
+            onOpenKitchen={() => setView("kitchen")}
+            onBack={() => setView("welcome")}
+          />
+        )}
 
-          {view === "drinks" && (
-            <DrinksView
-              drinks={drinks}
-              menuLoading={menuLoading}
-              menuError={menuError}
-              onBack={() => setView("guest")}
-              onConfirm={(order) => {
-                setOrders((prev) => [...prev, order]);
-                setView("thanks");
-              }}
-            />
-          )}
+        {view === "drinks" && (
+          <DrinksView
+            drinks={drinks}
+            menuLoading={menuLoading}
+            menuError={menuError}
+            onBack={() => setView("guest")}
+            onConfirm={() => setView("thanks")}
+          />
+        )}
 
-          {view === "thanks" && (
-            <ThankYouView onDone={() => setView("guest")} />
-          )}
+        {view === "thanks" && <ThankYouView onDone={() => setView("guest")} />}
 
-          {view === "kitchen" && (
-            <KitchenView onBack={() => setView("guest")} />
-          )}
-        </div>
+        {view === "kitchen" && <KitchenView onBack={() => setView("guest")} />}
       </div>
     </div>
   );
